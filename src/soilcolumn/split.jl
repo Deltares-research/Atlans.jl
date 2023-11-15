@@ -106,6 +106,7 @@ function cellsplit!(
             cell.α0,
             cell.α,
             NaN,
+            cell.Δm
         )
         upper = CarbonStore(
             upperΔz,
@@ -116,6 +117,7 @@ function cellsplit!(
             cell.α0,
             cell.α,
             NaN,
+            cell.Δm
         )
 
         insert!(column.cells, index, lower)
