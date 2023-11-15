@@ -10,6 +10,7 @@ struct CarbonStore <: OxidationProcess
     α0::Float # oxidation rate t=0
     α::Float  # oxidation rate
     oxidation::Float  # computed oxidation
+    Δm::Float # computed mass loss
 end
 
 
@@ -17,7 +18,7 @@ function CarbonStore(Δz, f_organic, f_minimum_organic, ρb, α)
     m_organic = mass_organic(f_organic, ρb, Δz)
     m_mineral = mass_mineral(f_organic, ρb, Δz)
     return CarbonStore(
-        Δz, f_organic, f_minimum_organic, m_organic, m_mineral, α, α, NaN
+        Δz, f_organic, f_minimum_organic, m_organic, m_mineral, α, α, NaN, 0.0
     )
 end
 
@@ -81,6 +82,7 @@ function oxidate(cs::CarbonStore, Δt::Float)
         cs.α0,
         cs.α,
         oxidation,  # new
+        Δm
     )
 end
 
@@ -112,6 +114,7 @@ function initialize(::Type{CarbonStore}, domain, subsoil, I)
         fill(0.0, domain.n),
         max_oxidation_depth,
         no_oxidation_Δz,
+        fill(0.0, domain.n)
     )
     return column
 end
@@ -132,6 +135,7 @@ function initialize(::Type{NullOxidation}, domain, _, _)
         domain.z,
         domain.Δz,
         fill(0.0, domain.n),
+        NaN,
         NaN,
         NaN
     )

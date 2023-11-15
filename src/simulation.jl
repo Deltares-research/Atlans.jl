@@ -24,6 +24,7 @@ struct Output
     oxidation::Array{Float}
     shrinkage::Array{Float}
     subsidence::Array{Float}
+    mass_loss::Array{Float}
 end
 
 
@@ -226,7 +227,7 @@ function Model(
     shape = size(domainbase)
     fillnan() = fill(NaN, shape)
 
-    output = Output(x, y, fillnan(), fillnan(), fillnan(), fillnan(), fillnan())
+    output = Output(x, y, fillnan(), fillnan(), fillnan(), fillnan(), fillnan(), fillnan())
 
     return Model(columns, index, timestepper, adaptive_cellsize, output)
 end
@@ -298,7 +299,7 @@ function advance_forcingperiod!(
             apply_forcing!(forcing, column, I)
         end
         # Compute
-        subsidence, consolidation, oxidation, shrinkage = advance_forcingperiod!(
+        subsidence, consolidation, oxidation, shrinkage, mass_loss = advance_forcingperiod!(
             column, timesteps
         )
         # Store result
@@ -308,6 +309,7 @@ function advance_forcingperiod!(
         model.output.consolidation[I] = consolidation
         model.output.oxidation[I] = oxidation
         model.output.shrinkage[I] = shrinkage
+        model.output.mass_loss[I] = mass_loss
     end
     return
 end
