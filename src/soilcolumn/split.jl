@@ -156,8 +156,10 @@ function columnsplit!(oc::OxidationColumn, index, newlength, lowerΔz, upperΔz)
 
     if typeof(oc) <: NullColumn
         push!(oc.result, 0.0)
+        push!(oc.mass_loss, 0.0)
     else
         push!(oc.result, NaN)
+        push!(oc.mass_loss, 0.0)
     end
 end
 
