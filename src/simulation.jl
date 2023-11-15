@@ -15,13 +15,14 @@ struct Writer
 end
 
 struct Output
-	x::Vector{Float}
-	y::Vector{Float}
-	phreatic_level::Array{Float}
-	consolidation::Array{Float}
-	oxidation::Array{Float}
-	shrinkage::Array{Float}
-	subsidence::Array{Float}
+    x::Vector{Float}
+    y::Vector{Float}
+    phreatic_level::Array{Float}
+    consolidation::Array{Float}
+    oxidation::Array{Float}
+    shrinkage::Array{Float}
+    subsidence::Array{Float}
+    mass_loss::Array{Float}
 end
 
 
@@ -224,7 +225,7 @@ function Model(
 	shape = size(domainbase)
 	fillnan() = fill(NaN, shape)
 
-	output = Output(x, y, fillnan(), fillnan(), fillnan(), fillnan(), fillnan())
+    output = Output(x, y, fillnan(), fillnan(), fillnan(), fillnan(), fillnan(), fillnan())
 
 	return Model(columns, index, timestepper, adaptive_cellsize, output)
 end
@@ -315,12 +316,13 @@ function advance_forcingperiod!(
 		# Store result
 		model.output.phreatic_level[I] = phreatic_level(column.groundwater)
 
-		model.output.subsidence[I] = subsidence
-		model.output.consolidation[I] = consolidation
-		model.output.oxidation[I] = oxidation
-		model.output.shrinkage[I] = shrinkage
-	end
-	return
+        model.output.subsidence[I] = subsidence
+        model.output.consolidation[I] = consolidation
+        model.output.oxidation[I] = oxidation
+        model.output.shrinkage[I] = shrinkage
+        model.output.mass_loss[I] = mass_loss
+    end
+    return
 end
 
 
