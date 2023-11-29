@@ -24,7 +24,7 @@ struct Output
     oxidation::Array{Float}
     shrinkage::Array{Float}
     subsidence::Array{Float}
-    mass_loss::Array{Float}
+    carbon_loss::Array{Float}
 end
 
 
@@ -299,7 +299,7 @@ function advance_forcingperiod!(
             apply_forcing!(forcing, column, I)
         end
         # Compute
-        subsidence, consolidation, oxidation, shrinkage, mass_loss = advance_forcingperiod!(
+        subsidence, consolidation, oxidation, shrinkage, carbon_loss = advance_forcingperiod!(
             column, timesteps
         )
         # Store result
@@ -309,7 +309,7 @@ function advance_forcingperiod!(
         model.output.consolidation[I] = consolidation
         model.output.oxidation[I] = oxidation
         model.output.shrinkage[I] = shrinkage
-        model.output.mass_loss[I] = mass_loss
+        model.output.carbon_loss[I] = carbon_loss
     end
     return
 end

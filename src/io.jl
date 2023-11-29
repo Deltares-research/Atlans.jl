@@ -130,7 +130,7 @@ function setup_output_netcdf(path, x, y)::NCDataset
     defVar(ds, "oxidation", Float, ("x", "y", "time"))
     defVar(ds, "shrinkage", Float, ("x", "y", "time"))
     defVar(ds, "subsidence", Float, ("x", "y", "time"))
-    defVar(ds, "mass_loss", Float, ("x", "y", "time"))
+    defVar(ds, "carbon_loss", Float, ("x", "y", "time"))
     return ds
 end
 
@@ -151,7 +151,7 @@ function prepare_writer(path, x, y)
             :oxidation => "oxidation",
             :subsidence => "subsidence",
             :shrinkage => "shrinkage",
-            :mass_loss => "mass_loss"
+            :carbon_loss => "carbon_loss"
         ),
     )
 end
@@ -169,6 +169,6 @@ function write(writer, clock, output)
     ncwrite(writer, :consolidation, output.consolidation, clock.iteration)
     ncwrite(writer, :oxidation, output.oxidation, clock.iteration)
     ncwrite(writer, :shrinkage, output.shrinkage, clock.iteration)
-    ncwrite(writer, :mass_loss, output.mass_loss, clock.iteration)
+    ncwrite(writer, :carbon_loss, output.carbon_loss, clock.iteration)
     return
 end

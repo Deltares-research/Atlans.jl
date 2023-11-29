@@ -5,7 +5,7 @@ struct OxidationColumn{O}
     result::Vector{Float}
     max_oxidation_depth::Float
     no_oxidation_Δz::Float
-    mass_loss::Vector{Float}
+    carbon_loss::Vector{Float}
 end
 
 
@@ -45,7 +45,7 @@ function oxidate!(
             newcell = oxidate(cell, Δt)
             column.cells[index] = newcell
             column.result[index] = newcell.oxidation
-            column.mass_loss[index] = newcell.Δm
+            column.carbon_loss[index] = newcell.Δm
         else
             break
         end
