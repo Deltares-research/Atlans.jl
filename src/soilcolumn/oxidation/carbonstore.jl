@@ -10,7 +10,7 @@ struct CarbonStore <: OxidationProcess
     α0::Float # oxidation rate t=0
     α::Float  # oxidation rate
     oxidation::Float  # computed oxidation
-    Δm::Float # computed mass loss
+    carbon_loss::Float # computed carbon loss of fossil carbon material
 end
 
 
@@ -58,6 +58,12 @@ function volume_organic(f_organic, ρb)
 end
 
 
+function fossil_carbon_loss(oxidation, ρb, f_organic)
+    fossil_carbon_fraction = 0.55
+    oxidation * ρb * f_organic * fossil_carbon_fraction
+end
+
+
 function oxidate(cs::CarbonStore, Δt::Float)
     if cs.α == 0 || cs.Δz == 0.0
         new = @set cs.oxidation = 0.0
@@ -82,7 +88,7 @@ function oxidate(cs::CarbonStore, Δt::Float)
         cs.α0,
         cs.α,
         oxidation,  # new
-        Δm
+        fossil_carbon_loss(oxidation, ρb, cs.f_organic)
     )
 end
 
