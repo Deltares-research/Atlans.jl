@@ -247,12 +247,12 @@ function advance_forcingperiod!(c::SoilColumn, timesteps::Vector{Float})
     shrinkage = 0.0
     carbon_loss = 0.0
     for Δt in timesteps
-        Δs, Δc, Δo, Δsh, Δm = advance_timestep!(c, Δt)
+        Δs, Δc, Δo, Δsh, ΔC = advance_timestep!(c, Δt)
         subsidence += Δs
         consolidation += Δc
         oxidation += Δo
         shrinkage += Δsh
-        carbon_loss += Δm
+        carbon_loss += ΔC
     end
     return subsidence, consolidation, oxidation, shrinkage, carbon_loss
 end

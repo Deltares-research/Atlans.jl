@@ -45,7 +45,7 @@ function oxidate!(
             newcell = oxidate(cell, Δt)
             column.cells[index] = newcell
             column.result[index] = newcell.oxidation
-            column.carbon_loss[index] = newcell.Δm
+            column.carbon_loss[index] = newcell.carbon_loss
         else
             break
         end
