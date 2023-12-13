@@ -39,6 +39,7 @@ function oxidate!(
         surface_level(column) - column.max_oxidation_depth
     )
     column.result .= 0.0
+    column.carbon_loss .= 0.0
     for index in reverse(1:length(column.cells))
         if column.z[index] > oxidation_z
             cell = column.cells[index]
