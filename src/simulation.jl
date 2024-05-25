@@ -126,7 +126,11 @@ function prepare_domain(
     geology,
     lithology,
 )
-    ztop = modelbase .+ cumsum(thickness)
+    is_valid = .!ismissing.(thickness)
+    thickness_summed = cumsum(skipmissing(thickness))
+    thickness[is_valid] .= thickness_summed
+
+    ztop = modelbase .+ thickness
     zbot = ztop .- thickness
 
     base_index = findfirst(domainbase .< skipmissing(ztop))
