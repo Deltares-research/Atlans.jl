@@ -126,6 +126,10 @@ function prepare_domain(
     geology,
     lithology,
 )
+    thickness = filter(!ismissing, thickness)
+    geology = filter(!ismissing, geology)
+    lithology = filter(!ismissing, lithology)
+    
     ztop = modelbase .+ cumsum(thickness)
     zbot = ztop .- thickness
 
