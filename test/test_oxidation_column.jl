@@ -28,10 +28,12 @@
 
         expected_ox = [0.0, 0.0, 0.0, 9.125e-3]
         expected_forg = [0.2, 0.2, 0.2, 0.19706930295578862]
+        expected_carbon_loss = [0.0, 0.0, 0.0, 1.0037500000000001]
 
         @test all(column.result .≈ expected_ox)
         @test all(
             c.f_organic ≈ forg for (c, forg) in zip(column.cells, expected_forg)
         )
+        @test all(column.carbon_loss .≈ expected_carbon_loss)
     end
 end

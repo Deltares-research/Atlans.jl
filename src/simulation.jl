@@ -15,14 +15,14 @@ struct Writer
 end
 
 struct Output
-    x::Vector{Float}
-    y::Vector{Float}
-    phreatic_level::Array{Float}
-    consolidation::Array{Float}
-    oxidation::Array{Float}
-    shrinkage::Array{Float}
-    subsidence::Array{Float}
-    carbon_loss::Array{Float}
+	x::Vector{Float}
+	y::Vector{Float}
+	phreatic_level::Array{Float}
+	consolidation::Array{Float}
+	oxidation::Array{Float}
+	shrinkage::Array{Float}
+	subsidence::Array{Float}
+	carbon_loss::Array{Float}
 end
 
 
@@ -92,12 +92,12 @@ function prepare_domain(
 	geology,
 	lithology,
 )
-    thickness = filter(!ismissing, thickness)
-    geology = filter(!ismissing, geology)
-    lithology = filter(!ismissing, lithology)
-    
-    ztop = modelbase .+ cumsum(thickness)
-    zbot = ztop .- thickness
+	thickness = filter(!ismissing, thickness)
+	geology = filter(!ismissing, geology)
+	lithology = filter(!ismissing, lithology)
+
+	ztop = modelbase .+ cumsum(thickness)
+	zbot = ztop .- thickness
 
 	base_index = findfirst(domainbase .< skipmissing(ztop))
 	top_index = findlast(surface .> skipmissing(zbot))
@@ -108,7 +108,7 @@ function prepare_domain(
 	z = zbot[base_index] .+ cumsum(Δz) .- 0.5 .* Δz
 	n = sum(ncells)
 	index .+= (base_index - 1)
-    zbottom = zbot[base_index]
+	zbottom = zbot[base_index]
 	return VerticalDomain(z, Δz, geology[index], lithology[index], index, n, zbottom)
 end
 
@@ -225,7 +225,7 @@ function Model(
 	shape = size(domainbase)
 	fillnan() = fill(NaN, shape)
 
-    output = Output(x, y, fillnan(), fillnan(), fillnan(), fillnan(), fillnan(), fillnan())
+	output = Output(x, y, fillnan(), fillnan(), fillnan(), fillnan(), fillnan(), fillnan())
 
 	return Model(columns, index, timestepper, adaptive_cellsize, output)
 end
@@ -310,19 +310,19 @@ function advance_forcingperiod!(
 			apply_forcing!(forcing, column, I)
 		end
 		# Compute
-		subsidence, consolidation, oxidation, shrinkage = advance_forcingperiod!(
+		subsidence, consolidation, oxidation, shrinkage, carbon_loss = advance_forcingperiod!(
 			column, timesteps,
 		)
 		# Store result
 		model.output.phreatic_level[I] = phreatic_level(column.groundwater)
 
-        model.output.subsidence[I] = subsidence
-        model.output.consolidation[I] = consolidation
-        model.output.oxidation[I] = oxidation
-        model.output.shrinkage[I] = shrinkage
-        model.output.carbon_loss[I] = carbon_loss
-    end
-    return
+		model.output.subsidence[I] = subsidence
+		model.output.consolidation[I] = consolidation
+		model.output.oxidation[I] = oxidation
+		model.output.shrinkage[I] = shrinkage
+		model.output.carbon_loss[I] = carbon_loss
+	end
+	return
 end
 
 
