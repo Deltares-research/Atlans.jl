@@ -215,7 +215,7 @@ function Model(
 			o_column,
 			s_column,
 		)
-		# Set values such as preconsolidation stress, τ0, etc.        
+		# Set values such as preconsolidation stress, τ0, etc.
 		# This requires groundwater: pore pressure, etc.
 		apply_preconsolidation!(column)
 		push!(columns, column)
@@ -233,7 +233,7 @@ end
 
 """
 	Simulation(model, path_output, stop_time, forcings, additional_times)
-	
+
 Setup a simulation from an initialized model.
 """
 function Simulation(
@@ -275,6 +275,7 @@ function advance_forcingperiod!(
 	surcharge = nothing,
 )
 	timesteps = create_timesteps(model.timestepper, duration)
+    @show "Advance forcing period"
 	@progress for (I, column) in zip(model.index, model.columns)
 		# Compute pre-loading stresses, set t to 0, etc.
 		if isnothing(deep_subsidence)
@@ -297,7 +298,7 @@ function advance_forcingperiod!(
 			column_subsidence,
 			column_phreatic_change,
 		)
-		# Apply changes 
+		# Apply changes
 		for forcing in (
 			stage_indexation,
 			deep_subsidence,
@@ -350,6 +351,7 @@ function advance_forcingperiod!(simulation)
 	forcing = simulation.forcing
 	model = simulation.model
 
+	@show "Load forcings"
 	advance_forcingperiod!(
 		model,
 		duration;
@@ -361,7 +363,10 @@ function advance_forcingperiod!(simulation)
 		surcharge = load_forcing!(forcing, :surcharge, time, model),
 	)
 
+    @show "Write output"
+    start = time()
 	write(simulation.writer, clock, simulation.model.output)
+    @show time() - start
 	advance!(clock)
 	return
 end
