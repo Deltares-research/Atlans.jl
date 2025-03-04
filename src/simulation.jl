@@ -17,12 +17,12 @@ end
 struct Output
 	x::Vector{Float}
 	y::Vector{Float}
-	phreatic_level::Array{Float}
-	consolidation::Array{Float}
-	oxidation::Array{Float}
-	shrinkage::Array{Float}
-	subsidence::Array{Float}
-	carbon_loss::Array{Float}
+	phreatic_level::Array{Float, 2}
+	consolidation::Array{Float, 2}
+	oxidation::Array{Float, 2}
+	shrinkage::Array{Float, 2}
+	subsidence::Array{Float, 2}
+	carbon_loss::Array{Float, 2}
 end
 
 
@@ -275,7 +275,6 @@ function advance_forcingperiod!(
 	surcharge = nothing,
 )
 	timesteps = create_timesteps(model.timestepper, duration)
-    @show "Advance forcing period"
 	@progress for (I, column) in zip(model.index, model.columns)
 		# Compute pre-loading stresses, set t to 0, etc.
 		if isnothing(deep_subsidence)
@@ -351,7 +350,6 @@ function advance_forcingperiod!(simulation)
 	forcing = simulation.forcing
 	model = simulation.model
 
-	@show "Load forcings"
 	advance_forcingperiod!(
 		model,
 		duration;
@@ -363,10 +361,7 @@ function advance_forcingperiod!(simulation)
 		surcharge = load_forcing!(forcing, :surcharge, time, model),
 	)
 
-    @show "Write output"
-    start = time()
 	write(simulation.writer, clock, simulation.model.output)
-    @show time() - start
 	advance!(clock)
 	return
 end

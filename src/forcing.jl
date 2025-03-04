@@ -2,8 +2,8 @@ abstract type Forcing end
 
 
 struct Surcharge <: Forcing
-    lithology::Array{OptionalInt}
-    thickness::Array{OptionalFloat}
+    lithology::Array{OptionalInt, 3}
+    thickness::Array{OptionalFloat, 3}
     reader::Reader
     lookup::Dict
 end
@@ -11,27 +11,27 @@ end
 
 struct StageIndexation <: Forcing
     percentile::Int
-    factor::Array{OptionalFloat}
-    weir_area::Array{OptionalInt}
-    change::Array{OptionalFloat}
+    factor::Array{OptionalFloat, 2}
+    weir_area::Array{OptionalInt, 2}
+    change::Array{OptionalFloat, 2}
     reader::Reader
 end
 
 
 struct DeepSubsidence <: Forcing
-    subsidence::Array{OptionalFloat}
+    subsidence::Array{OptionalFloat, 2}
     reader::Reader
 end
 
 
 struct StageChange <: Forcing
-    change::Array{OptionalFloat}
+    change::Array{OptionalFloat, 2}
     reader::Reader
 end
 
 
 struct AquiferHead <: Forcing
-    head::Array{OptionalFloat}
+    head::Array{OptionalFloat, 2}
     reader::Reader
 end
 
