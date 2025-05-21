@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Shrinkage – Atlantis Subsidence (Atlans)</title>
+<title>Shrinkage – Atlans.jl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -56,14 +56,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6dcff1da76caa345ce2682e55cf36527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dac9c0feefcab5d5a24386cdac31846d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-6dcff1da76caa345ce2682e55cf36527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d4e7164801876f6d2fd3aa15ac80b4c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -295,7 +295,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Atlantis Subsidence (Atlans)</span>
+    <span class="navbar-title">Atlans.jl</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -341,7 +341,7 @@ window.Quarto = {
   </li>
   <li class="nav-item">
     <a class="nav-link" href="https://www.deltares.nl"> 
-<span class="menu-text"><span class="logo-container"> <img src="_static/images/deltares-blue.svg" class="footer-image-light" height="30"> <img src="_static/images/deltares-white.svg" class="footer-image-dark" height="30"> </span></span></a>
+<span class="menu-text"><span class="logo-container"> <img src="../_static/images/deltares-blue.svg" class="footer-image-light" height="30"> <img src="../_static/images/deltares-white.svg" class="footer-image-dark" height="30"> </span></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -435,14 +435,14 @@ window.Quarto = {
 <section id="process-onderstaand-vertalen-uit-kooi-et-al." class="level1">
 <h1>Process (onderstaand vertalen, uit: Kooi et al.)</h1>
 <p>Rijping vindt plaats bij het droogvallen (drainage/ontwatering) van klei-rijke sedimenten die onder water zijn afgezet. Luchtindringing in de bodem zet fysische en chemische veranderingen in gang waarbij het slappe sediment geleidelijk verandert in een stevige, doorlatende bodem met structuur. Fysische rijping gaat gepaard met een onomkeerbaar verlies aan water en een aanzienlijk volumeverlies, variërend van 10% bij lichte zavel tot wel 30% bij zware klei (Jongmans et al.&nbsp;2013). Dit wordt ook wel (onomkeerbare) krimp genoemd. Wateronttrekking door begroeiing versnelt het rijpingsproces aanzienlijk. Door het volumeverlies ontstaan rijpingsscheuren in de bodem en treedt maaivelddaling op.</p>
-<p>In de Flevopolders was rijping (krimp) een hoofdoorzaak van de bodemdaling door de drooglegging van de waterbodems van het IJsselmeer. Grote delen van het minerale dek zijn inmiddels sterk gerijpt waardoor een verdere bijdrage aan bodemdaling afwezig of zeer beperkt is. Echter, op diverse locaties in Flevoland komen desondanks nog ongerijpte of onvolledig gerijpte bodemhorizonten voor op relatief ondiepe bodemniveaus (boven de GLG). Dat betekent dat op deze locaties ook nu nog rekening moet worden gehouden met een rijpingsbijdrage (restrijping). Bovendien is klei en zavel beneden de diepste grondwaterstand over het algemeen niet aan uitdroging blootgesteld, wat betekent dat in scenario’s waarbij de grondwaterstand (GLG) zou worden verlaagd, rijping weer zal gaan bijdragen. Er is daarom besloten om rijping als apart bodemdalingsproces mee te nemen in de bodemdalingsprognose voor Flevoland (zie uitgangspunt 2 in hoofdstuk 2). Omdat bij aanvang van dit project rijping in Atlantis ontbrak, is hiervoor een nieuwe rekenwijze opgesteld.</p>
+<p>In de Flevopolders was rijping (krimp) een hoofdoorzaak van de bodemdaling door de drooglegging van de waterbodems van het IJsselmeer. Grote delen van het minerale dek zijn inmiddels sterk gerijpt waardoor een verdere bijdrage aan bodemdaling afwezig of zeer beperkt is. Echter, op diverse locaties in Flevoland komen desondanks nog ongerijpte of onvolledig gerijpte bodemhorizonten voor op relatief ondiepe bodemniveaus (boven de GLG). Dat betekent dat op deze locaties ook nu nog rekening moet worden gehouden met een rijpingsbijdrage (restrijping). Bovendien is klei en zavel beneden de diepste grondwaterstand over het algemeen niet aan uitdroging blootgesteld, wat betekent dat in scenario’s waarbij de grondwaterstand (GLG) zou worden verlaagd, rijping weer zal gaan bijdragen. Er is daarom besloten om rijping als apart bodemdalingsproces mee te nemen in de bodemdalingsprognose voor Flevoland (zie uitgangspunt 2 in hoofdstuk 2). Omdat bij aanvang van dit project rijping in <code>Atlans</code> ontbrak, is hiervoor een nieuwe rekenwijze opgesteld.</p>
 </section>
 <section id="calculation-methods" class="level1">
 <h1>Calculation methods</h1>
 <p>Since April 2023, Atlans supports calculations for shrinkage (Kooi et al., 2023). Similar to oxidation, shrinkage occurs above the groundwater table.</p>
 <p>(onderstaande ook vertalen)<br> De volgende uitgangspunten zijn gebruikt bij het opstellen van de rekenwijze.</p>
 <ul>
-<li>De rekenwijze maakt gebruik van de GLG als de algemene stuurvariabele voor de karakterisatie van grondwatercondities in Atlantis.</li>
+<li>De rekenwijze maakt gebruik van de GLG als de algemene stuurvariabele voor de karakterisatie van grondwatercondities in <code>Atlans</code>.</li>
 <li>Als toestandsvariabele die de mate van rijping karakteriseert word gebruik gemaakt van het bestaande concept n-factor (rijpingsgraad of rijpingsgetal) (Pons en Zonneveld, 1965). Zie bijlage 19B.</li>
 <li>Rijping is compleet als een laagste limietwaarde voor de n-factor is bereikt. Er kan dan geen verdere rijping meer plaatsvinden.</li>
 <li>Rijping is onomkeerbaar.</li>

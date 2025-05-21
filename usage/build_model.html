@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Run Atlantis simulations – Atlantis Subsidence (Atlans)</title>
+<title>Run simulations – Atlans.jl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,14 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6dcff1da76caa345ce2682e55cf36527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dac9c0feefcab5d5a24386cdac31846d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-6dcff1da76caa345ce2682e55cf36527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d4e7164801876f6d2fd3aa15ac80b4c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Atlantis Subsidence (Atlans)</span>
+    <span class="navbar-title">Atlans.jl</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
   <li class="nav-item">
     <a class="nav-link" href="https://www.deltares.nl"> 
-<span class="menu-text"><span class="logo-container"> <img src="_static/images/deltares-blue.svg" class="footer-image-light" height="30"> <img src="_static/images/deltares-white.svg" class="footer-image-dark" height="30"> </span></span></a>
+<span class="menu-text"><span class="logo-container"> <img src="../_static/images/deltares-blue.svg" class="footer-image-light" height="30"> <img src="../_static/images/deltares-white.svg" class="footer-image-dark" height="30"> </span></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -342,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../usage/build_model.html">Run Atlantis simulations</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../usage/build_model.html">Run simulations</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../usage/build_model.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Run Atlantis simulations</span></a>
+ <span class="menu-text">Run simulations</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -396,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Run Atlantis simulations</h1>
+<h1 class="title">Run simulations</h1>
 </div>
 
 
@@ -413,14 +413,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Subsidence calculations in Atlantis consist of running a Simulation object that contains several parts: a Model, Clock, Forcings and time (start time and stress periods). Below an example is given of how to build and run the Simulation object with all the necessary components. Each Simulation stores an output Netcdf file with the calculated subsidence and individual contributions of consolidation, oxidation and shrinkage. We will start by importing the modules:</p>
+<p>Subsidence calculations in <code>Atlans</code> consist of running a Simulation object that contains several parts: a Model, Clock, Forcings and time (start time and stress periods). Below an example is given of how to build and run the Simulation object with all the necessary components. Each Simulation stores an output Netcdf file with the calculated subsidence and individual contributions of consolidation, oxidation and shrinkage. We will start by importing the modules:</p>
 <div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Atlans</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Dates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="processes-to-include-in-the-subsidence-calculation" class="level1">
 <h1>Processes to include in the subsidence calculation</h1>
-<p>The first choice a user has to make is which of the processes to include in the subsidence calculations. In part, an Atlantis Model consists of a collection of SoilColumns that contain a subcolumn for groundwater, consolidation, oxidation and shrinkage (see <a href="../core/index.html">Model components</a>). The processes leading to subsidence are determined at the voxel level. This means: each subcolumn contains the individual voxels with the specific process that will contribute to subsidence that is chosen by the user.</p>
+<p>The first choice a user has to make is which of the processes to include in the subsidence calculations. In part, an <code>Atlans</code> Model consists of a collection of SoilColumns that contain a subcolumn for groundwater, consolidation, oxidation and shrinkage (see <a href="../core/index.html">Model components</a>). The processes leading to subsidence are determined at the voxel level. This means: each subcolumn contains the individual voxels with the specific process that will contribute to subsidence that is chosen by the user.</p>
 <p>Either of the processes, except for groundwater, can be included or excluded from the calculations. Below the options for consolidation, oxidation and shrinkage are given:</p>
 <ul>
 <li>Groundwater (mandatory)
@@ -479,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="add-forcings" class="level1">
 <h1>Add forcings</h1>
-<p>Atlantis simulations also need input for Forcings such as water level management (e.g.&nbsp;groundwater table lowering) at each stress period. The input for forcings is a namedtuple containing the names of the forcings as keys and the Atlantis Forcing objects as values. See the <a href="">available</a> for the available Forcing mechanisms and <a href="../build/index.html">API reference</a> for the inputs.</p>
+<p><code>Atlans</code> simulations also need input for Forcings such as water level management (e.g.&nbsp;groundwater table lowering) at each stress period. The input for forcings is a namedtuple containing the names of the forcings as keys and the <code>Atlans</code> Forcing objects as values. See the <a href="">available</a> for the available Forcing mechanisms and <a href="../build/index.html">API reference</a> for the inputs.</p>
 <p>The example below shows how to include a single forcing (StageChange) in a Simulation:</p>
 <div id="cell-6" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path_to_forcing <span class="op">=</span> <span class="st">"stage_change.nc"</span></span>
@@ -491,7 +491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="stress-periods" class="level1">
 <h1>Stress periods</h1>
-<p>Atlantis calculates subsidence over stress periods. A Simulation can be run over one or multiple stress periods. Atlantis automatically determines the stress periods based on the time dimensions of the input forcings. An additional option is to define additional stess periods which are not in the time dimensions of the forcings, for instance to divide a single stress period in the forcing in smaller time steps.</p>
+<p><code>Atlans</code> calculates subsidence over stress periods. A Simulation can be run over one or multiple stress periods. <code>Atlans</code> automatically determines the stress periods based on the time dimensions of the input forcings. An additional option is to define additional stess periods which are not in the time dimensions of the forcings, for instance to divide a single stress period in the forcing in smaller time steps.</p>
 <p>For example: assume that the input StageChange has three stress periods of five years (2025, 2030 and 2035) but smaller time steps are desired in the first stress period. This can be done by providing a Vector containing DateTime objects of the additionally desired time steps:</p>
 <div id="cell-8" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add yearly stress periods</span></span>

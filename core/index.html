@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Atlantis – Atlantis Subsidence (Atlans)</title>
+<title>Atlantis – Atlans.jl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -56,14 +56,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6dcff1da76caa345ce2682e55cf36527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dac9c0feefcab5d5a24386cdac31846d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-6dcff1da76caa345ce2682e55cf36527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d4e7164801876f6d2fd3aa15ac80b4c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -266,7 +266,7 @@ div.csl-indent {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Atlantis Subsidence (Atlans)</span>
+    <span class="navbar-title">Atlans.jl</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -312,7 +312,7 @@ div.csl-indent {
   </li>
   <li class="nav-item">
     <a class="nav-link" href="https://www.deltares.nl"> 
-<span class="menu-text"><span class="logo-container"> <img src="_static/images/deltares-blue.svg" class="footer-image-light" height="30"> <img src="_static/images/deltares-white.svg" class="footer-image-dark" height="30"> </span></span></a>
+<span class="menu-text"><span class="logo-container"> <img src="../_static/images/deltares-blue.svg" class="footer-image-light" height="30"> <img src="../_static/images/deltares-white.svg" class="footer-image-dark" height="30"> </span></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -413,13 +413,13 @@ div.csl-indent {
 <section id="subjects-to-cover-in-this-page" class="level1">
 <h1>Subjects to cover in this page:</h1>
 <ul>
-<li><p>The input model for Atlantis is constructed from the subsurface model, groundwater table and elevation data.</p></li>
+<li><p>The input model for <code>Atlans</code> is constructed from the subsurface model, groundwater table and elevation data.</p></li>
 <li><p>Time dimensions is categorized in terms of stress periods and time steps (<a href="#fig-schematic" class="quarto-xref">Fig.&nbsp;1</a> b). A stress period is the time during which a constant stress is applied (for example the surface water stage in a management area or a surcharge). Within a stress period, time is discretized into individual timesteps. A stress period therefore generally consists of multiple timesteps. A complete model simulation can consist of one or multiple stress periods which may all vary in duration.</p></li>
 <li><p>In each time step, a consolidation, oxidation and shrinkage calculation is performed and the resulting loss in elevation due to each process is stored.</p></li>
-<li><p>Core of Atlantis are the Model and Simulation objects</p></li>
+<li><p>Core of <code>Atlans</code> are the Model and Simulation objects</p></li>
 <li><p>Explanation of what the model consists of -&gt; a collection of columns consisting of 4 types of columns -&gt; groundwater, consolidation, oxidation and shrinkage columns (maybe include figure of this concept)</p></li>
 <li><p>Explanation of a column. Only discuss the four components (gw, cons, ox, shr) briefly as this will be covered in the respective pages.</p></li>
-<li><p>Current calculation methods which are supported by Atlantis and including or ignoring these in the modelling</p></li>
+<li><p>Current calculation methods which are supported by <code>Atlans</code> and including or ignoring these in the modelling</p></li>
 </ul>
 <div id="fig-schematic" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -427,7 +427,7 @@ div.csl-indent {
 <img src="../_static/images/schematic_modelling.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Fig.&nbsp;1.. Schematic overview of the Atlantis modelling framework. (a) representation of a single modelling cycle in a stress period. (b) Time discretization of the model in terms of stress periods and time steps. Adapted from <span class="citation" data-cites="bootsma2020atlantis">Bootsma, Kooi, and Erkens (<a href="#ref-bootsma2020atlantis" role="doc-biblioref">2020</a>)</span>.
+Fig.&nbsp;1.. Schematic overview of the <code>Atlans</code> modelling framework. (a) representation of a single modelling cycle in a stress period. (b) Time discretization of the model in terms of stress periods and time steps. Adapted from <span class="citation" data-cites="bootsma2020atlantis">Bootsma, Kooi, and Erkens (<a href="#ref-bootsma2020atlantis" role="doc-biblioref">2020</a>)</span>.
 </figcaption>
 </figure>
 </div>
@@ -441,7 +441,7 @@ Fig.&nbsp;1.. Schematic overview of the Atlantis modelling framework. (a) repres
 <img src="../_static/images/components_model.png" class="img-fluid figure-img" width="400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Fig.&nbsp;2.. Main components of an Atlantis subsurface model that is used for modelling simulations.
+Fig.&nbsp;2.. Main components of an <code>Atlans</code> subsurface model that is used for modelling simulations.
 </figcaption>
 </figure>
 </div>

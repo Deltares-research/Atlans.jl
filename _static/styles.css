@@ -23,6 +23,12 @@
     /* Adjust the value as needed */
 }
 
+.navbar-brand {
+    padding-left: 2rem;
+    margin-right: 2rem;
+    /* Increase size between page title and pages */
+}
+
 .active-item {
     font-weight: bold;
     text-decoration: underline;

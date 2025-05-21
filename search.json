@@ -1,102 +1,10 @@
 [
   {
-    "objectID": "usage/index.html",
-    "href": "usage/index.html",
-    "title": "Usage",
-    "section": "",
-    "text": "How to install\nFirst download and install the current stable release of Julia. Please see platform specific instructions for further installation instructions and if you have trouble installing Julia.\nIf you are new to Julia, it may be a good idea to check out the Getting Started section of the Julia Manual. Links to other learning resources can be found at julialang.org/learning.\n\nInstalling as Julia package\nIn the Julia REPL:\njulia&gt; using Pkg; Pkg.add(\"Atlans\")\nor, enter the package manager by pressing ] and type:\npkg&gt; add Atlans\nTo install the latest development version from the GitHub repository directly, enter the package manager and use:\npkg&gt; add https://github.com/Deltares-research/Atlans.jl.git\nCheck installation by:\njulia&gt; using Atlans\nThe first time this will take longer as any package that is new or changed needs to be pre-compiled first, to allow faster loading on subsequent uses. No error messages should appear, indicating that you have now successfully installed Atlans.",
-    "crumbs": [
-      "Usage"
-    ]
-  },
-  {
-    "objectID": "usage/build_model.html",
-    "href": "usage/build_model.html",
-    "title": "Run Atlantis simulations",
-    "section": "",
-    "text": "Subsidence calculations in Atlantis consist of running a Simulation object that contains several parts: a Model, Clock, Forcings and time (start time and stress periods). Below an example is given of how to build and run the Simulation object with all the necessary components. Each Simulation stores an output Netcdf file with the calculated subsidence and individual contributions of consolidation, oxidation and shrinkage. We will start by importing the modules:\n\nusing Atlans\nusing Dates\n\n\nProcesses to include in the subsidence calculation\nThe first choice a user has to make is which of the processes to include in the subsidence calculations. In part, an Atlantis Model consists of a collection of SoilColumns that contain a subcolumn for groundwater, consolidation, oxidation and shrinkage (see Model components). The processes leading to subsidence are determined at the voxel level. This means: each subcolumn contains the individual voxels with the specific process that will contribute to subsidence that is chosen by the user.\nEither of the processes, except for groundwater, can be included or excluded from the calculations. Below the options for consolidation, oxidation and shrinkage are given:\n\nGroundwater (mandatory)\n\nHydrostaticGroundwater\n\nConsolidation\n\nDrainingABCIsotache\nABCIsotache\nKoppejan\nNullConsolidation # this type is used to ignore consolidation\n\nOxidation\n\nCarbonStore\nConstantRate\nNullOxidation # this type is used to ignore oxidation\n\nShrinkage\n\nSimpleShrinkage\nNullShrinkage # this type is used to ignore shrinkage\n\n\n\n\nBuild standard Model with all processes\nWe will build a Model component object that includes all of the processes. This is done using the voxelmodel and parameter table (see homepage), and the chosen processes in the previous step. Additionally, a Model object contains AdaptiveCellsize and ExponentialTimeStepper objects. The AdaptiveCellsize object is an important component in the modelling as this controls splitting of voxels around the groundwater table. The ExponentialTimeStepper object is used to discretize the time steps within each stress period (see API reference).\nThe code cell below shows the example to build a Model with all the processes included in the calculations.\n\n## specify the input voxelmodel and parameter table\npath_to_subsurface_model = \"my_subsurface_model.nc\"\npath_to_parameter_table = \"my_parameter_table.nc\"\n\n## input for AdaptiveCellsize\nmax_voxel_thickness = 0.25 # m\nsplit_tolerance = 0.01 # m\n\n## input for Timestepper\nstart_day = 1.0\nmultiplier = 2\n\nmodel = Atlans.Model(\n    Atlans.HydrostaticGroundwater,\n    Atlans.DrainingAbcIsotache,\n    Atlans.CarbonStore,\n    Atlans.OverConsolidationRatio,\n    Atlans.SimpleShrinkage,\n    Atlans.AdaptiveCellsize(max_voxel_thickness, split_tolerance),\n    Atlans.ExponentialTimeStepper(start_day, multiplier),\n    path_to_subsurface_model,\n    path_to_parameter_table,\n)\n\n\n\nAdd forcings\nAtlantis simulations also need input for Forcings such as water level management (e.g. groundwater table lowering) at each stress period. The input for forcings is a namedtuple containing the names of the forcings as keys and the Atlantis Forcing objects as values. See the available for the available Forcing mechanisms and API reference for the inputs.\nThe example below shows how to include a single forcing (StageChange) in a Simulation:\n\npath_to_forcing = \"stage_change.nc\"\n\nforcings = (\n    stage_change=Atlans.StageChange(path_to_forcing)\n)\n\n\n\nStress periods\nAtlantis calculates subsidence over stress periods. A Simulation can be run over one or multiple stress periods. Atlantis automatically determines the stress periods based on the time dimensions of the input forcings. An additional option is to define additional stess periods which are not in the time dimensions of the forcings, for instance to divide a single stress period in the forcing in smaller time steps.\nFor example: assume that the input StageChange has three stress periods of five years (2025, 2030 and 2035) but smaller time steps are desired in the first stress period. This can be done by providing a Vector containing DateTime objects of the additionally desired time steps:\n\n# Add yearly stress periods\nadditional_periods = map(\n    DateTime,\n    ['2021-01-01', '2022-01-01', '2023-01-01', '2024-01-01']\n)\n\n\n\nBuild and run the Simulation\nThe only remaining input for the Simulation is the end date and a destination path of the output netcdf. The end date can be equal to the date of the last forcing period or correspond to an extra forcing period. The input for end date is a DateTime object. Now all the inputs are present and the Simulation object can be built:\n\noutput_path = \"output.nc\"\nstop_time = DateTime(\"2040-01-01\") # Chosen end date is an extra forcing period\n\nsimulation = Atlans.Simulation(\n    model,\n    output_path,\n    stop_time,\n    forcings,\n    additional_periods\n)\n\nFinally, the Simulation can be run by:\n\nAtlans.run!(simulation)",
-    "crumbs": [
-      "Usage",
-      "Run Atlantis simulations"
-    ]
-  },
-  {
-    "objectID": "src/index.html",
-    "href": "src/index.html",
-    "title": "API Reference",
-    "section": "",
-    "text": "This is the private internal documentation of the Atlans API.\n\n\n\nModules = [Atlans]\nOrder   = [:module]\n\n\n\nModules = [Atlans]\nOrder   = [:type]\n\n\n\nModules = [Atlans]\nOrder   = [:function]\n\n\n\nModules = [Atlans]\nOrder   = [:constant]\n\n\n\nModules = [Atlans]\nOrder   = [:macro]"
-  },
-  {
-    "objectID": "src/index.html#modules",
-    "href": "src/index.html#modules",
-    "title": "API Reference",
-    "section": "",
-    "text": "Modules = [Atlans]\nOrder   = [:module]"
-  },
-  {
-    "objectID": "src/index.html#types",
-    "href": "src/index.html#types",
-    "title": "API Reference",
-    "section": "",
-    "text": "Modules = [Atlans]\nOrder   = [:type]"
-  },
-  {
-    "objectID": "src/index.html#functions",
-    "href": "src/index.html#functions",
-    "title": "API Reference",
-    "section": "",
-    "text": "Modules = [Atlans]\nOrder   = [:function]"
-  },
-  {
-    "objectID": "src/index.html#constants",
-    "href": "src/index.html#constants",
-    "title": "API Reference",
-    "section": "",
-    "text": "Modules = [Atlans]\nOrder   = [:constant]"
-  },
-  {
-    "objectID": "src/index.html#macros",
-    "href": "src/index.html#macros",
-    "title": "API Reference",
-    "section": "",
-    "text": "Modules = [Atlans]\nOrder   = [:macro]"
-  },
-  {
-    "objectID": "core/oxidation.html",
-    "href": "core/oxidation.html",
-    "title": "Oxidation",
-    "section": "",
-    "text": "Process\nOxidation occurs in organic rich layers (e.g. peat) above the groundwater table.\n\n\nCalculation methods\nFor oxidation two approaches are supported (Bootsma et al., 2020): a more comprehensive organic mass based approach where the organic matter content determines the potential amount of surface lowering and a more simple oxidation at a constant rate.\n\nOrganic based approach (CarbonStore)\nAll voxels are initially assigned an organic mass fraction: \\[\nF_{org} = \\frac{M_{org}}{M_{org} + M_{min}}\n\\tag{1}\\]\nwhere org and min denote organic and mineral respectively. \\(F_{org}\\) is identical to the LOI (loss on ignition) quantity that is used for the characterization of organic matter content of subsurface materials. The organic and the mineral mass content of a voxel (per \\(m^2\\) in map view) is calculated from:\n\\[\nM_{org} = F_{org}\\rho_{bulk}H\n\\tag{2}\\] \\[\nM_{min} = (1-F_{org})\\rho_{bulk}H\n\\tag{3}\\]\nwhere \\(\\rho_{bulk}\\) is the dry bulk density and \\(H\\) is the momentary voxel height. The initial bulk density (\\(kg/m^3\\)) is modelled with an empirical relationship obtained from a large set of observational data of Dutch peat samples (Erkens, Van der Meulen, and Middelkoop 2016):\n\\[\n\\rho_{bulk} = \\frac{100}{F_{org}}(1-e^{-F_{org}/0.12})\n\\tag{4}\\]\nIn each time step \\(\\Delta t\\), organic mass loss is modelling using a constant rate law for the (part of) the voxels that are shallower than a specified height above the MLGT and not deeper than 1.2 m below the surface level:\n\\[\n\\Delta M_{org} = -\\alpha_{m}H\\Delta t\n\\tag{5}\\]\n\\(\\alpha_{m}\\) is an empirical constant estimated from a dataset with observations over several of land subsidence in peat-meadow areas in the Netherlands (Van den Akker et al. 2007). Organic mass loss of each voxel is then converted to a height loss with:\n\\[\n\\Delta H^{ox} = \\Delta M_{org}\\hat{V}\n\\tag{6}\\]\nwhere \\(\\hat{V}\\) is called the “specific volume of oxidation”. Direct measurements of this quantity do not exist. For high \\(F_{org}\\) (i.e. regular peat) \\(\\hat{V}\\) can likely be approximated by the reciprocal of the dry bulk organic matter density. Below \\(F_{org} \\approx 0.3\\) (i.e. transition to organic rich clay), \\(\\hat{V}\\) is expected to decrease as the bulk volume is more strongly determined by the mineral framework rather than by the organic matter. These concepts are captured by the following equation:\n\\[\n\\hat{V} = \\frac{0.5}{F_{org}\\rho_{bulk}} \\left( 1+erf \\left( \\frac{F_{org}-0.2}{0.1} \\right) \\right)\\; \\; [m^3/kg/m^2]\n\\tag{7}\\]\nEach time step, \\(M_{org}\\) and \\(F_{org}\\) (Equation 1) are updated for organic mass loss. The thickness of the voxel (\\(H\\)) is updated with the combined result of the consolidation, oxidation and shrinkage. Subsequently, \\(\\rho_{bulk}\\) is updated using:\n\\[\n\\rho_{bulk} = \\frac{M_{org} + M_{min}}{H}\n\\tag{8}\\]\nThis organic-mass based approach of oxidation provides a consistent framework to account for the mineral content of organic soils. While the organic mass fraction decreases by oxidation, the mineral mass fraction increases and ultimately, the non-oxidizable residue remains. The approach also allows modelling of oxidation-caused subsidence contributions of organic-rich clays and is not limited to oxidation of peat.\n\n\nConstant rate (ConstantRate)\nAdd explanation of constant rate calculations…\n\n\n\n\n\n\nReferences\n\nErkens, G, MJ Van der Meulen, and H Middelkoop. 2016. “Double Trouble: Subsidence and CO2 Respiration Due to 1,000 Years of Dutch Coastal Peatlands Cultivation.” Hydrogeology Journal 24 (3): 551–61.\n\n\nVan den Akker, JJH, J Beuving, RFA Hendriks, and RJ Wolleswinkel. 2007. “Maaivelddaling, Afbraak En CO2 Emissie van Nederlandse Veenweidegebieden.” In In: Leidraad Bodembescherming, Afl 83, 1–30.",
-    "crumbs": [
-      "Atlantis",
-      "Oxidation"
-    ]
-  },
-  {
-    "objectID": "core/consolidation.html",
-    "href": "core/consolidation.html",
-    "title": "Consolidation",
-    "section": "",
-    "text": "Process\n\n\nCalculation methods\nDifferent approaches to calculate the amount of consolidation are supported (Bootsma, Kooi, and Erkens 2020): the Koppejan and Isotache models.\n\nKoppejan model\nThe Koppejan (Civil Engineering) 1996) model…\n\n\nIsotache model\nThe Isotache model (Den Haan 1996; Kooi et al. 2018) has become the recommended model for settlement modelling in the Netherlands since about one decade. It overcomes limitations of the Koppejan model but requires more sensitive parameter tuning to avoid spurious effects of anomalously high creep rates and initial subsidence rates. Total strain \\(\\varepsilon\\) (relative height loss) of a voxel for a time step \\(\\Delta{t} = t^n-t^{n-1}\\) consists of an elastic part and an inelastic part. The latter follows from a rate-law (viscous behaviour) that is referred to as creep. The model uses three compression parameters: swelling constant \\(a\\), compression constant \\(b\\), secondary compression constant \\(c\\). The elastic strain increment is obtained from:\n\\[\n\\Delta\\varepsilon_{e} = a \\ln\\left(\\frac{\\sigma^{\\prime(n)}}{\\sigma^{\\prime(n-1)}}\\right)\n\\tag{1}\\]\nwhere \\(\\sigma^{\\prime}\\) is the effective stress. Creep strain is governed by intrinsic time:\n\\[\n\\tau = \\tau_{ref}OCR^{\\frac{b-a}{c}}; \\; OCR = \\sigma_p^{\\prime} / \\sigma^{\\prime}\n\\tag{2}\\]\nwhere \\(OCR\\) is the overconsolidation ratio, \\(\\sigma_p^{\\prime}\\) the preconsolidation stress and \\(\\tau_{ref}\\) a reference intrinsic time of 1 d.\nThe creep strain is calculated from the following set of relationships (Equation 3 and 4): \\[\n\\Delta\\varepsilon_{cr} = c \\ln\\left(\\frac{\\tau^n}{\\tau^*}\\right); \\; \\tau^n = \\tau^* + \\Delta{t}\n\\tag{3}\\]\n\\[\n\\tau^* = \\tau^{n-1}\\left(\\frac{\\sigma^{\\prime(n-1)}}{\\sigma^{\\prime(n)}}\\right)^\\frac{b-a}{c}\n\\tag{4}\\]\n\nDrainingABCIsotache\n\n\nABCIsotache\n\n\n\nEffective stress development\nThe Koppejan and isotache compression models are combined with a module that handles effective stress development. Stresses are evaluated for the center-depth of voxels. Presently, effective stress calculation uses the degree-of-consolidation approach of Terzaghi (e.g. Verruijt 2001). The equilibrium effective stress for fully drained (end of primary consolidation) conditions is calculated as the difference of total stress and equilibrium pore pressure:\n\\[\n\\sigma_{eq}^{\\prime} = \\sigma - p_{eq}\n\\tag{5}\\]\nTotal stress is obtained from the overburden weight, where specific weight varies per lithology (sand, clay, peat). A saturated and unsaturated specific weight is specified. Specific weight increases with volume loss by compression. Equilibrium pore pressure (\\(p_{eq}\\)) is obtained from the equilibrium hydraulic head (\\(h_{eq}\\)):\n\\[\np_{eq} = \\frac{h_{eq}-z}{\\gamma_{w}}\n\\tag{6}\\]\nwhere \\(\\gamma_{w}\\) is the specific weight of water and \\(z\\) the elevation head relative to the Dutch ordinance level. Equilibrium head is currently based on linear interpolation between the head of the aquifer which underlies the Holocene confining layer and the momentary phreatic water table. That is, more complex head variation over the Holocene voxel stack in case of vertical seepage in combination with vertically varying hydraulic conductivity is currently neglected. Note that the approach includes effective stress reduction (load reduction) due to drowning; during a stress period in which both water table and aquifer head are constant, the equilibrium pore pressure of the voxels tends to slowly increase due to consolidation-related subsidence which lowers the elevation head \\(z\\).\nA water table lowering event at the start of a stress period corresponds to a “load” \\(\\sigma_{eq}^{\\prime} = \\Delta\\sigma - \\Delta{p_{eq}}\\). Currently two options are available for the way \\(\\Delta{p_{eq}}\\) is handled (Fig. 1). The change in total stress Δσaccounts for the reduction of overburden weight when the unsaturated specific weight is less than the saturated specific weight. In the time steps within the stress period, the load \\(\\Delta\\sigma_{eq}^{\\prime}\\) is gradually transferred to \\(\\sigma\\) using the degree-of-consolidation \\(U\\):\n\\[\n\\sigma^{\\prime(n)} = \\sigma^{\\prime(n-1)} + \\Delta{U}\\Delta\\sigma_{eq}^{\\prime(n-1)}; \\; \\Delta{U} = U^{(n)} - U^{n-1}\n\\]\n\\[\nU(t) = \\left[\\frac{T^3}{T^3+0.5}\\right]^{1/6}; T = \\frac{c_vt}{L^3}\n\\]\nwhere \\(T\\) is the non-dimensional consolidation time, \\(c_v\\) the consolidation coefficient and \\(L\\) the length scale of two-sided drainage. Presently, \\(L\\) is set equal to the thickness of a voxel (which tends to decrease with time).\n\n\n\n\n\n\nFig. 1.. Change of equilibrium (drained) pore pressure due to a drop of the water table. (a) Aquifer pressure (and head) follows the water table drop. (b) Aquifer pressure (and head) remain stable.\n\n\n\n\n\n\n\n\n\nReferences\n\nBootsma, H, H Kooi, and G Erkens. 2020. “Atlantis, a Tool for Producing National Predictive Land Subsidence Maps of the Netherlands.” Proceedings of the International Association of Hydrological Sciences 382: 415–20. https://doi.org/https://doi.org/10.5194/piahs-382-415-2020.\n\n\nCivil Engineering), CUR (Centre for. 1996. Building on Soft Soils. CRC Press, London, UK.\n\n\nDen Haan, EJ. 1996. “A Compression Model for Non-Brittle Soft Clays and Peat.” Géotechnique 46 (1): 1–16. https://doi.org/https://doi.org/10.1680/geot.1996.46.1.1.\n\n\nKooi, H, M Bakr, G de Lange, E den Haan, and G Erkens. 2018. User Guide to SUB-CR; a MODFLOW Package for Land Subsidence and Aquifer System Compaction That Includes Creep. Deltares internal report 11202275-008, available at: http://publications.deltares.nl/11202275_008.pdf (last access: 25 February 2020) [In Dutch].\n\n\nVerruijt, A. 2001. Soil Mechanics, Open Courseware. Technical University Delft, available at: https://ocw.tudelft.nl/wp-content/uploads/SoilMechBook.pdf (last access: 3 March 2020).",
-    "crumbs": [
-      "Atlantis",
-      "Consolidation"
-    ]
-  },
-  {
-    "objectID": "core/groundwater.html#hydrostatic-groundwater-hydrostaticgroundwater",
-    "href": "core/groundwater.html#hydrostatic-groundwater-hydrostaticgroundwater",
-    "title": "Groundwater",
-    "section": "Hydrostatic groundwater (HydrostaticGroundwater)",
-    "text": "Hydrostatic groundwater (HydrostaticGroundwater)"
-  },
-  {
     "objectID": "data/requirements.html",
     "href": "data/requirements.html",
     "title": "Dutch use case",
     "section": "",
-    "text": "So far, Atlantis has mainly been applied in the Netherlands. Here, the input subsurface model for the modelling with Atlantis is created from a combination of 2D and 3D geological data available at BRO/DINO and 2D elevation and 2D groundwater table grids. The main input data sources are listed below:\n\nGeoTOP (3D voxelmodel)\nBRO Bodemkaart (2D mapping with 3D soilprofiles)\nNL3D (3D voxelmodel)\nAlgemeen Hoogtebestand Nederland (AHN)\n\n\n\nGeoTOP (found here)\n\n\n\nBRO Bodemkaart (available at PDOK)\n\n\n\nNL3D (found here)\n\n\n\nAHN (available at PDOK)",
+    "text": "So far, Atlans has mainly been applied in the Netherlands. Here, the input subsurface model for the modelling with Atlans is created from a combination of 2D and 3D geological data available at BRO/DINO and 2D elevation and 2D groundwater table grids. The main input data sources are listed below:\n\nGeoTOP (3D voxelmodel)\nBRO Bodemkaart (2D mapping with 3D soilprofiles)\nNL3D (3D voxelmodel)\nAlgemeen Hoogtebestand Nederland (AHN)\n\n\n\nGeoTOP (found here)\n\n\n\nBRO Bodemkaart (available at PDOK)\n\n\n\nNL3D (found here)\n\n\n\nAHN (available at PDOK)",
     "crumbs": [
       "Input Data",
       "Dutch use case"
@@ -147,57 +55,46 @@
     ]
   },
   {
-    "objectID": "data/index.html",
-    "href": "data/index.html",
-    "title": "Data requirements",
+    "objectID": "src/index.html",
+    "href": "src/index.html",
+    "title": "API Reference",
     "section": "",
-    "text": "(Topics on this page)\n\nWhat is needed in order to run Atlantis\nExplanation of a subsurface model\nWhich layers need to be present in the input model: maybe divide over mandatory layers and layers per process\nStructure of the model axes\nDescription of the input layers",
-    "crumbs": [
-      "Input Data",
-      "Data requirements"
-    ]
+    "text": "This is the private internal documentation of the Atlans API.\n\n\n\nModules = [Atlans]\nOrder   = [:module]\n\n\n\nModules = [Atlans]\nOrder   = [:type]\n\n\n\nModules = [Atlans]\nOrder   = [:function]\n\n\n\nModules = [Atlans]\nOrder   = [:constant]\n\n\n\nModules = [Atlans]\nOrder   = [:macro]"
   },
   {
-    "objectID": "core/shrinkage.html",
-    "href": "core/shrinkage.html",
-    "title": "Shrinkage",
+    "objectID": "src/index.html#modules",
+    "href": "src/index.html#modules",
+    "title": "API Reference",
     "section": "",
-    "text": "Rijping vindt plaats bij het droogvallen (drainage/ontwatering) van klei-rijke sedimenten die onder water zijn afgezet. Luchtindringing in de bodem zet fysische en chemische veranderingen in gang waarbij het slappe sediment geleidelijk verandert in een stevige, doorlatende bodem met structuur. Fysische rijping gaat gepaard met een onomkeerbaar verlies aan water en een aanzienlijk volumeverlies, variërend van 10% bij lichte zavel tot wel 30% bij zware klei (Jongmans et al. 2013). Dit wordt ook wel (onomkeerbare) krimp genoemd. Wateronttrekking door begroeiing versnelt het rijpingsproces aanzienlijk. Door het volumeverlies ontstaan rijpingsscheuren in de bodem en treedt maaivelddaling op.\nIn de Flevopolders was rijping (krimp) een hoofdoorzaak van de bodemdaling door de drooglegging van de waterbodems van het IJsselmeer. Grote delen van het minerale dek zijn inmiddels sterk gerijpt waardoor een verdere bijdrage aan bodemdaling afwezig of zeer beperkt is. Echter, op diverse locaties in Flevoland komen desondanks nog ongerijpte of onvolledig gerijpte bodemhorizonten voor op relatief ondiepe bodemniveaus (boven de GLG). Dat betekent dat op deze locaties ook nu nog rekening moet worden gehouden met een rijpingsbijdrage (restrijping). Bovendien is klei en zavel beneden de diepste grondwaterstand over het algemeen niet aan uitdroging blootgesteld, wat betekent dat in scenario’s waarbij de grondwaterstand (GLG) zou worden verlaagd, rijping weer zal gaan bijdragen. Er is daarom besloten om rijping als apart bodemdalingsproces mee te nemen in de bodemdalingsprognose voor Flevoland (zie uitgangspunt 2 in hoofdstuk 2). Omdat bij aanvang van dit project rijping in Atlantis ontbrak, is hiervoor een nieuwe rekenwijze opgesteld.",
-    "crumbs": [
-      "Atlantis",
-      "Shrinkage"
-    ]
+    "text": "Modules = [Atlans]\nOrder   = [:module]"
   },
   {
-    "objectID": "core/shrinkage.html#shrinkage-calculation-simpleshrinkage",
-    "href": "core/shrinkage.html#shrinkage-calculation-simpleshrinkage",
-    "title": "Shrinkage",
-    "section": "Shrinkage calculation (SimpleShrinkage)",
-    "text": "Shrinkage calculation (SimpleShrinkage)\nThe decrease in shrinkage degree (\\(n\\)) is described as an exponential relation (with e-folding time scale \\(\\tau\\) that determines when the final state is “reached”):\n\\[\n\\frac{dn}{dt} = \\frac{n_{final}-n}{\\tau}\n\\tag{1}\\]\nAt unchanged conditions, a starting value \\(n_{start}\\) follows at \\(t = t_{start}\\):\n\\[\nn(t) = n_{final} + (n_{start} - n_{final})\\cdot{e}^{-(t-t_{start})/\\tau}\n\\tag{2}\\]\nFor a time step of finite size \\(\\Delta{t}\\) then follows:\n\\[\nn(t + \\Delta{t}) = n(t) + \\left(n(t)-n_{final}\\right)\\left(e^{-\\Delta{t}/\\tau}-1\\right)\n\\tag{3}\\]\nA reduction of shrinkage degree for a time step or stress period that follows from Equation 1 is translated into a relative decrease of volume of a voxel (or part of a voxel that is within the depths where shrinkage occurs):\n\\[\n\\Delta{V}/V_{ref} = factor \\cdot \\Delta{n}\n\\tag{4}\\]\nThe decrease results in a negative value. For practical purposes, \\(V_{ref}\\) is the same as the soil volume with the shrinkage degree at the start of the calculation (\\(n_0\\)). Therefore, the volume changes (\\(\\Delta{V}\\)) for a given time step can be calculated from volume of a voxel at \\(t_0\\). The \\(factor\\) in Equation 4 is given by a relation from Pons and Zonneveld (1965):\n\\[\nfactor = \\frac{(L+bH)/\\rho_w}{n_0(L+bH)/\\rho_w+0.2R/\\rho_w+C}\n\\tag{5}\\]\n\\[\nR = 1 - L - H; \\; \\; C=R/\\rho_R + H/\\rho_H + L/\\rho_L\n\\]\nwhere \\(L, H, R, C\\) are the mass fractions of the lutum, organic, colloidal and solid particles respectively and \\(\\rho_w, \\rho_L, \\rho_H, \\rho_R\\) are the densities of water and solid particles respectively. Subsequently, the relative change of thickness of a voxel is calculated by including a geometry factor (\\(r\\)):\n\\[\n\\frac{\\Delta{H}}{H} = \\left(1+\\frac{\\Delta{V}}{V}\\right)^{1/r}-1\n\\tag{6}\\]\nHere, \\(r=3\\) produces isotropic shrinkage and \\(r=1\\), purely vertical shrinkage (Rijniersce 1983).\nA lower limit beneath the land surface can be specified where shrinkage will no longer take place which is at a specified depth (\\(H_v^0\\)) above the MLGT. To be able to incorporate shrinkage in subsidence calculations, \\(n, L\\) and \\(H\\) must be parameterized for voxels at the start.",
-    "crumbs": [
-      "Atlantis",
-      "Shrinkage"
-    ]
-  },
-  {
-    "objectID": "core/index.html",
-    "href": "core/index.html",
-    "title": "Atlantis",
+    "objectID": "src/index.html#types",
+    "href": "src/index.html#types",
+    "title": "API Reference",
     "section": "",
-    "text": "The input model for Atlantis is constructed from the subsurface model, groundwater table and elevation data.\nTime dimensions is categorized in terms of stress periods and time steps (Fig. 1 b). A stress period is the time during which a constant stress is applied (for example the surface water stage in a management area or a surcharge). Within a stress period, time is discretized into individual timesteps. A stress period therefore generally consists of multiple timesteps. A complete model simulation can consist of one or multiple stress periods which may all vary in duration.\nIn each time step, a consolidation, oxidation and shrinkage calculation is performed and the resulting loss in elevation due to each process is stored.\nCore of Atlantis are the Model and Simulation objects\nExplanation of what the model consists of -&gt; a collection of columns consisting of 4 types of columns -&gt; groundwater, consolidation, oxidation and shrinkage columns (maybe include figure of this concept)\nExplanation of a column. Only discuss the four components (gw, cons, ox, shr) briefly as this will be covered in the respective pages.\nCurrent calculation methods which are supported by Atlantis and including or ignoring these in the modelling\n\n\n\n\n\n\n\nFig. 1.. Schematic overview of the Atlantis modelling framework. (a) representation of a single modelling cycle in a stress period. (b) Time discretization of the model in terms of stress periods and time steps. Adapted from Bootsma, Kooi, and Erkens (2020).",
-    "crumbs": [
-      "Atlantis"
-    ]
+    "text": "Modules = [Atlans]\nOrder   = [:type]"
   },
   {
-    "objectID": "core/index.html#column",
-    "href": "core/index.html#column",
-    "title": "Atlantis",
-    "section": "Column",
-    "text": "Column\n\nGroundwater column\n\n\nConsolidation column\n\n\nOxidation column\n\n\nShrinkage column",
-    "crumbs": [
-      "Atlantis"
-    ]
+    "objectID": "src/index.html#functions",
+    "href": "src/index.html#functions",
+    "title": "API Reference",
+    "section": "",
+    "text": "Modules = [Atlans]\nOrder   = [:function]"
+  },
+  {
+    "objectID": "src/index.html#constants",
+    "href": "src/index.html#constants",
+    "title": "API Reference",
+    "section": "",
+    "text": "Modules = [Atlans]\nOrder   = [:constant]"
+  },
+  {
+    "objectID": "src/index.html#macros",
+    "href": "src/index.html#macros",
+    "title": "API Reference",
+    "section": "",
+    "text": "Modules = [Atlans]\nOrder   = [:macro]"
   },
   {
     "objectID": "build/index.html#modules",
@@ -242,11 +139,85 @@
     "text": "Index\n\nAtlans.AdaptiveCellsize\nAtlans.Clock\nAtlans.ExponentialTimeStepper\nAtlans.Model\nAtlans.ShrinkageColumn\nAtlans.SimpleShrinkage\nAtlans.Simulation\nAtlans.SoilColumn\nAtlans.VerticalDomain\nAtlans.Qcreep_derivative\nAtlans.U\nAtlans.add_time\nAtlans.advance!\nAtlans.advance_forcingperiod!\nAtlans.advance_forcingperiod!\nAtlans.advance_forcingperiod!\nAtlans.advance_timestep!\nAtlans.cellsplit!\nAtlans.cellsplit!\nAtlans.compress_γ_dry\nAtlans.compress_γ_wet\nAtlans.consolidate\nAtlans.create_timesteps\nAtlans.currenttime\nAtlans.discretize\nAtlans.draining_abc_isotache_column\nAtlans.effective_stress!\nAtlans.formulate\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.initialize\nAtlans.parse_loglevel\nAtlans.periodduration\nAtlans.pow\nAtlans.prepare_domain\nAtlans.prepare_forcingperiod!\nAtlans.prepare_forcingperiod!\nAtlans.prepare_surcharge_column\nAtlans.prepare_timestep!\nAtlans.prepare_timestep!\nAtlans.relative_oxidation_rate\nAtlans.repeat_elements\nAtlans.run!\nAtlans.set_periods!\nAtlans.set_surcharge!\nAtlans.shrink\nAtlans.subside!\nAtlans.total_stress!\nAtlans.transfer_stress!\nAtlans.update_alpha\nAtlans.update_z!\nAtlans.volume_organic\nAtlans.weight"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Atlantis Subsidence (Atlans)",
+    "objectID": "usage/index.html",
+    "href": "usage/index.html",
+    "title": "Usage",
     "section": "",
-    "text": "Atlantis is a modelling environment which is implemented in the Julia programming language. The source code can found in the Atlans repository.\n\nInstallation\nAtlans is available in the general package registry. Installation in the Julia REPL:\njulia&gt; using Pkg; Pkg.add(\"Atlans\")\nor, from the package manager (press ] in the Julia REPL to enter):\npkg&gt; add Atlans\n\n\nBackground\nAtlantis is a tool that can be used to create regional and national scale predictions of soil subsidence based on 3D voxelmodels of the subsurface buildup and scenarios of for example phreatic groundwater level management.\n\n\n\n\n\n\nFig. 1. Flow diagram of the main workflow of Atlantis (*= impacted by climate change).\n\n\n\nSubsidence is calculated per 1D subsurface column as the sum of a combination of three processes: consolidation, oxidation and shrinkage. In general, Atlantis does not consider horizontal interaction between individual columns. Currently, the only horizontal interaction is the possibility to apply a periodic groundwater table lowering based on the median subsidence within a regional area (for example within weir areas).\nBesides the 3D subsurface model, the predictions of subsidence heavily rely on an input groundwater table which is typically a long-term mean lowest groundwater table (MLGT; in Dutch: GLG). This groundwater table is used to determine the depths where oxidation and shrinkage processes contribute to subsidence. Furthermore, calculations of consolidation use the groundwater table to determine water- and exchange pore-pressures. The modelling concepts and equations are explained further on the Atlantis page and an explanation of the installation, along with examples of the usage can be found on the Usage page."
+    "text": "How to install\nFirst download and install the current stable release of Julia. Please see platform specific instructions for further installation instructions and if you have trouble installing Julia.\nIf you are new to Julia, it may be a good idea to check out the Getting Started section of the Julia Manual. Links to other learning resources can be found at julialang.org/learning.\n\nInstalling as Julia package\nIn the Julia REPL, install Atlans by:\njulia&gt; using Pkg; Pkg.add(\"Atlans\")\nor, enter the package manager by pressing ] and type:\npkg&gt; add Atlans\nTo install the latest development version from the GitHub repository directly, enter the package manager and use:\npkg&gt; add https://github.com/Deltares-research/Atlans.jl.git\nCheck installation by:\njulia&gt; using Atlans\nThe first time this will take longer as any package that is new or changed needs to be pre-compiled first, to allow faster loading on subsequent uses. No error messages should appear, indicating that you have now successfully installed Atlans.",
+    "crumbs": [
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "core/shrinkage.html",
+    "href": "core/shrinkage.html",
+    "title": "Shrinkage",
+    "section": "",
+    "text": "Rijping vindt plaats bij het droogvallen (drainage/ontwatering) van klei-rijke sedimenten die onder water zijn afgezet. Luchtindringing in de bodem zet fysische en chemische veranderingen in gang waarbij het slappe sediment geleidelijk verandert in een stevige, doorlatende bodem met structuur. Fysische rijping gaat gepaard met een onomkeerbaar verlies aan water en een aanzienlijk volumeverlies, variërend van 10% bij lichte zavel tot wel 30% bij zware klei (Jongmans et al. 2013). Dit wordt ook wel (onomkeerbare) krimp genoemd. Wateronttrekking door begroeiing versnelt het rijpingsproces aanzienlijk. Door het volumeverlies ontstaan rijpingsscheuren in de bodem en treedt maaivelddaling op.\nIn de Flevopolders was rijping (krimp) een hoofdoorzaak van de bodemdaling door de drooglegging van de waterbodems van het IJsselmeer. Grote delen van het minerale dek zijn inmiddels sterk gerijpt waardoor een verdere bijdrage aan bodemdaling afwezig of zeer beperkt is. Echter, op diverse locaties in Flevoland komen desondanks nog ongerijpte of onvolledig gerijpte bodemhorizonten voor op relatief ondiepe bodemniveaus (boven de GLG). Dat betekent dat op deze locaties ook nu nog rekening moet worden gehouden met een rijpingsbijdrage (restrijping). Bovendien is klei en zavel beneden de diepste grondwaterstand over het algemeen niet aan uitdroging blootgesteld, wat betekent dat in scenario’s waarbij de grondwaterstand (GLG) zou worden verlaagd, rijping weer zal gaan bijdragen. Er is daarom besloten om rijping als apart bodemdalingsproces mee te nemen in de bodemdalingsprognose voor Flevoland (zie uitgangspunt 2 in hoofdstuk 2). Omdat bij aanvang van dit project rijping in Atlans ontbrak, is hiervoor een nieuwe rekenwijze opgesteld.",
+    "crumbs": [
+      "Atlantis",
+      "Shrinkage"
+    ]
+  },
+  {
+    "objectID": "core/shrinkage.html#shrinkage-calculation-simpleshrinkage",
+    "href": "core/shrinkage.html#shrinkage-calculation-simpleshrinkage",
+    "title": "Shrinkage",
+    "section": "Shrinkage calculation (SimpleShrinkage)",
+    "text": "Shrinkage calculation (SimpleShrinkage)\nThe decrease in shrinkage degree (\\(n\\)) is described as an exponential relation (with e-folding time scale \\(\\tau\\) that determines when the final state is “reached”):\n\\[\n\\frac{dn}{dt} = \\frac{n_{final}-n}{\\tau}\n\\tag{1}\\]\nAt unchanged conditions, a starting value \\(n_{start}\\) follows at \\(t = t_{start}\\):\n\\[\nn(t) = n_{final} + (n_{start} - n_{final})\\cdot{e}^{-(t-t_{start})/\\tau}\n\\tag{2}\\]\nFor a time step of finite size \\(\\Delta{t}\\) then follows:\n\\[\nn(t + \\Delta{t}) = n(t) + \\left(n(t)-n_{final}\\right)\\left(e^{-\\Delta{t}/\\tau}-1\\right)\n\\tag{3}\\]\nA reduction of shrinkage degree for a time step or stress period that follows from Equation 1 is translated into a relative decrease of volume of a voxel (or part of a voxel that is within the depths where shrinkage occurs):\n\\[\n\\Delta{V}/V_{ref} = factor \\cdot \\Delta{n}\n\\tag{4}\\]\nThe decrease results in a negative value. For practical purposes, \\(V_{ref}\\) is the same as the soil volume with the shrinkage degree at the start of the calculation (\\(n_0\\)). Therefore, the volume changes (\\(\\Delta{V}\\)) for a given time step can be calculated from volume of a voxel at \\(t_0\\). The \\(factor\\) in Equation 4 is given by a relation from Pons and Zonneveld (1965):\n\\[\nfactor = \\frac{(L+bH)/\\rho_w}{n_0(L+bH)/\\rho_w+0.2R/\\rho_w+C}\n\\tag{5}\\]\n\\[\nR = 1 - L - H; \\; \\; C=R/\\rho_R + H/\\rho_H + L/\\rho_L\n\\]\nwhere \\(L, H, R, C\\) are the mass fractions of the lutum, organic, colloidal and solid particles respectively and \\(\\rho_w, \\rho_L, \\rho_H, \\rho_R\\) are the densities of water and solid particles respectively. Subsequently, the relative change of thickness of a voxel is calculated by including a geometry factor (\\(r\\)):\n\\[\n\\frac{\\Delta{H}}{H} = \\left(1+\\frac{\\Delta{V}}{V}\\right)^{1/r}-1\n\\tag{6}\\]\nHere, \\(r=3\\) produces isotropic shrinkage and \\(r=1\\), purely vertical shrinkage (Rijniersce 1983).\nA lower limit beneath the land surface can be specified where shrinkage will no longer take place which is at a specified depth (\\(H_v^0\\)) above the MLGT. To be able to incorporate shrinkage in subsidence calculations, \\(n, L\\) and \\(H\\) must be parameterized for voxels at the start.",
+    "crumbs": [
+      "Atlantis",
+      "Shrinkage"
+    ]
+  },
+  {
+    "objectID": "core/groundwater.html#hydrostatic-groundwater-hydrostaticgroundwater",
+    "href": "core/groundwater.html#hydrostatic-groundwater-hydrostaticgroundwater",
+    "title": "Groundwater",
+    "section": "Hydrostatic groundwater (HydrostaticGroundwater)",
+    "text": "Hydrostatic groundwater (HydrostaticGroundwater)"
+  },
+  {
+    "objectID": "core/oxidation.html",
+    "href": "core/oxidation.html",
+    "title": "Oxidation",
+    "section": "",
+    "text": "Process\nOxidation occurs in organic rich layers (e.g. peat) above the groundwater table.\n\n\nCalculation methods\nFor oxidation two approaches are supported (Bootsma et al., 2020): a more comprehensive organic mass based approach where the organic matter content determines the potential amount of surface lowering and a more simple oxidation at a constant rate.\n\nOrganic based approach (CarbonStore)\nAll voxels are initially assigned an organic mass fraction: \\[\nF_{org} = \\frac{M_{org}}{M_{org} + M_{min}}\n\\tag{1}\\]\nwhere org and min denote organic and mineral respectively. \\(F_{org}\\) is identical to the LOI (loss on ignition) quantity that is used for the characterization of organic matter content of subsurface materials. The organic and the mineral mass content of a voxel (per \\(m^2\\) in map view) is calculated from:\n\\[\nM_{org} = F_{org}\\rho_{bulk}H\n\\tag{2}\\] \\[\nM_{min} = (1-F_{org})\\rho_{bulk}H\n\\tag{3}\\]\nwhere \\(\\rho_{bulk}\\) is the dry bulk density and \\(H\\) is the momentary voxel height. The initial bulk density (\\(kg/m^3\\)) is modelled with an empirical relationship obtained from a large set of observational data of Dutch peat samples (Erkens, Van der Meulen, and Middelkoop 2016):\n\\[\n\\rho_{bulk} = \\frac{100}{F_{org}}(1-e^{-F_{org}/0.12})\n\\tag{4}\\]\nIn each time step \\(\\Delta t\\), organic mass loss is modelling using a constant rate law for the (part of) the voxels that are shallower than a specified height above the MLGT and not deeper than 1.2 m below the surface level:\n\\[\n\\Delta M_{org} = -\\alpha_{m}H\\Delta t\n\\tag{5}\\]\n\\(\\alpha_{m}\\) is an empirical constant estimated from a dataset with observations over several of land subsidence in peat-meadow areas in the Netherlands (Van den Akker et al. 2007). Organic mass loss of each voxel is then converted to a height loss with:\n\\[\n\\Delta H^{ox} = \\Delta M_{org}\\hat{V}\n\\tag{6}\\]\nwhere \\(\\hat{V}\\) is called the “specific volume of oxidation”. Direct measurements of this quantity do not exist. For high \\(F_{org}\\) (i.e. regular peat) \\(\\hat{V}\\) can likely be approximated by the reciprocal of the dry bulk organic matter density. Below \\(F_{org} \\approx 0.3\\) (i.e. transition to organic rich clay), \\(\\hat{V}\\) is expected to decrease as the bulk volume is more strongly determined by the mineral framework rather than by the organic matter. These concepts are captured by the following equation:\n\\[\n\\hat{V} = \\frac{0.5}{F_{org}\\rho_{bulk}} \\left( 1+erf \\left( \\frac{F_{org}-0.2}{0.1} \\right) \\right)\\; \\; [m^3/kg/m^2]\n\\tag{7}\\]\nEach time step, \\(M_{org}\\) and \\(F_{org}\\) (Equation 1) are updated for organic mass loss. The thickness of the voxel (\\(H\\)) is updated with the combined result of the consolidation, oxidation and shrinkage. Subsequently, \\(\\rho_{bulk}\\) is updated using:\n\\[\n\\rho_{bulk} = \\frac{M_{org} + M_{min}}{H}\n\\tag{8}\\]\nThis organic-mass based approach of oxidation provides a consistent framework to account for the mineral content of organic soils. While the organic mass fraction decreases by oxidation, the mineral mass fraction increases and ultimately, the non-oxidizable residue remains. The approach also allows modelling of oxidation-caused subsidence contributions of organic-rich clays and is not limited to oxidation of peat.\n\n\nConstant rate (ConstantRate)\nAdd explanation of constant rate calculations…\n\n\n\n\n\n\nReferences\n\nErkens, G, MJ Van der Meulen, and H Middelkoop. 2016. “Double Trouble: Subsidence and CO2 Respiration Due to 1,000 Years of Dutch Coastal Peatlands Cultivation.” Hydrogeology Journal 24 (3): 551–61.\n\n\nVan den Akker, JJH, J Beuving, RFA Hendriks, and RJ Wolleswinkel. 2007. “Maaivelddaling, Afbraak En CO2 Emissie van Nederlandse Veenweidegebieden.” In In: Leidraad Bodembescherming, Afl 83, 1–30.",
+    "crumbs": [
+      "Atlantis",
+      "Oxidation"
+    ]
+  },
+  {
+    "objectID": "core/index.html",
+    "href": "core/index.html",
+    "title": "Atlantis",
+    "section": "",
+    "text": "The input model for Atlans is constructed from the subsurface model, groundwater table and elevation data.\nTime dimensions is categorized in terms of stress periods and time steps (Fig. 1 b). A stress period is the time during which a constant stress is applied (for example the surface water stage in a management area or a surcharge). Within a stress period, time is discretized into individual timesteps. A stress period therefore generally consists of multiple timesteps. A complete model simulation can consist of one or multiple stress periods which may all vary in duration.\nIn each time step, a consolidation, oxidation and shrinkage calculation is performed and the resulting loss in elevation due to each process is stored.\nCore of Atlans are the Model and Simulation objects\nExplanation of what the model consists of -&gt; a collection of columns consisting of 4 types of columns -&gt; groundwater, consolidation, oxidation and shrinkage columns (maybe include figure of this concept)\nExplanation of a column. Only discuss the four components (gw, cons, ox, shr) briefly as this will be covered in the respective pages.\nCurrent calculation methods which are supported by Atlans and including or ignoring these in the modelling\n\n\n\n\n\n\n\nFig. 1.. Schematic overview of the Atlans modelling framework. (a) representation of a single modelling cycle in a stress period. (b) Time discretization of the model in terms of stress periods and time steps. Adapted from Bootsma, Kooi, and Erkens (2020).",
+    "crumbs": [
+      "Atlantis"
+    ]
+  },
+  {
+    "objectID": "core/index.html#column",
+    "href": "core/index.html#column",
+    "title": "Atlantis",
+    "section": "Column",
+    "text": "Column\n\nGroundwater column\n\n\nConsolidation column\n\n\nOxidation column\n\n\nShrinkage column",
+    "crumbs": [
+      "Atlantis"
+    ]
+  },
+  {
+    "objectID": "core/consolidation.html",
+    "href": "core/consolidation.html",
+    "title": "Consolidation",
+    "section": "",
+    "text": "Process\n\n\nCalculation methods\nDifferent approaches to calculate the amount of consolidation are supported (Bootsma, Kooi, and Erkens 2020): the Koppejan and Isotache models.\n\nKoppejan model\nThe Koppejan (Civil Engineering) 1996) model…\n\n\nIsotache model\nThe Isotache model (Den Haan 1996; Kooi et al. 2018) has become the recommended model for settlement modelling in the Netherlands since about one decade. It overcomes limitations of the Koppejan model but requires more sensitive parameter tuning to avoid spurious effects of anomalously high creep rates and initial subsidence rates. Total strain \\(\\varepsilon\\) (relative height loss) of a voxel for a time step \\(\\Delta{t} = t^n-t^{n-1}\\) consists of an elastic part and an inelastic part. The latter follows from a rate-law (viscous behaviour) that is referred to as creep. The model uses three compression parameters: swelling constant \\(a\\), compression constant \\(b\\), secondary compression constant \\(c\\). The elastic strain increment is obtained from:\n\\[\n\\Delta\\varepsilon_{e} = a \\ln\\left(\\frac{\\sigma^{\\prime(n)}}{\\sigma^{\\prime(n-1)}}\\right)\n\\tag{1}\\]\nwhere \\(\\sigma^{\\prime}\\) is the effective stress. Creep strain is governed by intrinsic time:\n\\[\n\\tau = \\tau_{ref}OCR^{\\frac{b-a}{c}}; \\; OCR = \\sigma_p^{\\prime} / \\sigma^{\\prime}\n\\tag{2}\\]\nwhere \\(OCR\\) is the overconsolidation ratio, \\(\\sigma_p^{\\prime}\\) the preconsolidation stress and \\(\\tau_{ref}\\) a reference intrinsic time of 1 d.\nThe creep strain is calculated from the following set of relationships (Equation 3 and 4): \\[\n\\Delta\\varepsilon_{cr} = c \\ln\\left(\\frac{\\tau^n}{\\tau^*}\\right); \\; \\tau^n = \\tau^* + \\Delta{t}\n\\tag{3}\\]\n\\[\n\\tau^* = \\tau^{n-1}\\left(\\frac{\\sigma^{\\prime(n-1)}}{\\sigma^{\\prime(n)}}\\right)^\\frac{b-a}{c}\n\\tag{4}\\]\n\nDrainingABCIsotache\n\n\nABCIsotache\n\n\n\nEffective stress development\nThe Koppejan and isotache compression models are combined with a module that handles effective stress development. Stresses are evaluated for the center-depth of voxels. Presently, effective stress calculation uses the degree-of-consolidation approach of Terzaghi (e.g. Verruijt 2001). The equilibrium effective stress for fully drained (end of primary consolidation) conditions is calculated as the difference of total stress and equilibrium pore pressure:\n\\[\n\\sigma_{eq}^{\\prime} = \\sigma - p_{eq}\n\\tag{5}\\]\nTotal stress is obtained from the overburden weight, where specific weight varies per lithology (sand, clay, peat). A saturated and unsaturated specific weight is specified. Specific weight increases with volume loss by compression. Equilibrium pore pressure (\\(p_{eq}\\)) is obtained from the equilibrium hydraulic head (\\(h_{eq}\\)):\n\\[\np_{eq} = \\frac{h_{eq}-z}{\\gamma_{w}}\n\\tag{6}\\]\nwhere \\(\\gamma_{w}\\) is the specific weight of water and \\(z\\) the elevation head relative to the Dutch ordinance level. Equilibrium head is currently based on linear interpolation between the head of the aquifer which underlies the Holocene confining layer and the momentary phreatic water table. That is, more complex head variation over the Holocene voxel stack in case of vertical seepage in combination with vertically varying hydraulic conductivity is currently neglected. Note that the approach includes effective stress reduction (load reduction) due to drowning; during a stress period in which both water table and aquifer head are constant, the equilibrium pore pressure of the voxels tends to slowly increase due to consolidation-related subsidence which lowers the elevation head \\(z\\).\nA water table lowering event at the start of a stress period corresponds to a “load” \\(\\sigma_{eq}^{\\prime} = \\Delta\\sigma - \\Delta{p_{eq}}\\). Currently two options are available for the way \\(\\Delta{p_{eq}}\\) is handled (Fig. 1). The change in total stress Δσaccounts for the reduction of overburden weight when the unsaturated specific weight is less than the saturated specific weight. In the time steps within the stress period, the load \\(\\Delta\\sigma_{eq}^{\\prime}\\) is gradually transferred to \\(\\sigma\\) using the degree-of-consolidation \\(U\\):\n\\[\n\\sigma^{\\prime(n)} = \\sigma^{\\prime(n-1)} + \\Delta{U}\\Delta\\sigma_{eq}^{\\prime(n-1)}; \\; \\Delta{U} = U^{(n)} - U^{n-1}\n\\]\n\\[\nU(t) = \\left[\\frac{T^3}{T^3+0.5}\\right]^{1/6}; T = \\frac{c_vt}{L^3}\n\\]\nwhere \\(T\\) is the non-dimensional consolidation time, \\(c_v\\) the consolidation coefficient and \\(L\\) the length scale of two-sided drainage. Presently, \\(L\\) is set equal to the thickness of a voxel (which tends to decrease with time).\n\n\n\n\n\n\nFig. 1.. Change of equilibrium (drained) pore pressure due to a drop of the water table. (a) Aquifer pressure (and head) follows the water table drop. (b) Aquifer pressure (and head) remain stable.\n\n\n\n\n\n\n\n\n\nReferences\n\nBootsma, H, H Kooi, and G Erkens. 2020. “Atlantis, a Tool for Producing National Predictive Land Subsidence Maps of the Netherlands.” Proceedings of the International Association of Hydrological Sciences 382: 415–20. https://doi.org/https://doi.org/10.5194/piahs-382-415-2020.\n\n\nCivil Engineering), CUR (Centre for. 1996. Building on Soft Soils. CRC Press, London, UK.\n\n\nDen Haan, EJ. 1996. “A Compression Model for Non-Brittle Soft Clays and Peat.” Géotechnique 46 (1): 1–16. https://doi.org/https://doi.org/10.1680/geot.1996.46.1.1.\n\n\nKooi, H, M Bakr, G de Lange, E den Haan, and G Erkens. 2018. User Guide to SUB-CR; a MODFLOW Package for Land Subsidence and Aquifer System Compaction That Includes Creep. Deltares internal report 11202275-008, available at: http://publications.deltares.nl/11202275_008.pdf (last access: 25 February 2020) [In Dutch].\n\n\nVerruijt, A. 2001. Soil Mechanics, Open Courseware. Technical University Delft, available at: https://ocw.tudelft.nl/wp-content/uploads/SoilMechBook.pdf (last access: 3 March 2020).",
+    "crumbs": [
+      "Atlantis",
+      "Consolidation"
+    ]
   },
   {
     "objectID": "usage/build_column.html",
@@ -257,6 +228,35 @@
     "crumbs": [
       "Usage",
       "Build single Column"
+    ]
+  },
+  {
+    "objectID": "usage/build_model.html",
+    "href": "usage/build_model.html",
+    "title": "Run simulations",
+    "section": "",
+    "text": "Subsidence calculations in Atlans consist of running a Simulation object that contains several parts: a Model, Clock, Forcings and time (start time and stress periods). Below an example is given of how to build and run the Simulation object with all the necessary components. Each Simulation stores an output Netcdf file with the calculated subsidence and individual contributions of consolidation, oxidation and shrinkage. We will start by importing the modules:\n\nusing Atlans\nusing Dates\n\n\nProcesses to include in the subsidence calculation\nThe first choice a user has to make is which of the processes to include in the subsidence calculations. In part, an Atlans Model consists of a collection of SoilColumns that contain a subcolumn for groundwater, consolidation, oxidation and shrinkage (see Model components). The processes leading to subsidence are determined at the voxel level. This means: each subcolumn contains the individual voxels with the specific process that will contribute to subsidence that is chosen by the user.\nEither of the processes, except for groundwater, can be included or excluded from the calculations. Below the options for consolidation, oxidation and shrinkage are given:\n\nGroundwater (mandatory)\n\nHydrostaticGroundwater\n\nConsolidation\n\nDrainingABCIsotache\nABCIsotache\nKoppejan\nNullConsolidation # this type is used to ignore consolidation\n\nOxidation\n\nCarbonStore\nConstantRate\nNullOxidation # this type is used to ignore oxidation\n\nShrinkage\n\nSimpleShrinkage\nNullShrinkage # this type is used to ignore shrinkage\n\n\n\n\nBuild standard Model with all processes\nWe will build a Model component object that includes all of the processes. This is done using the voxelmodel and parameter table (see homepage), and the chosen processes in the previous step. Additionally, a Model object contains AdaptiveCellsize and ExponentialTimeStepper objects. The AdaptiveCellsize object is an important component in the modelling as this controls splitting of voxels around the groundwater table. The ExponentialTimeStepper object is used to discretize the time steps within each stress period (see API reference).\nThe code cell below shows the example to build a Model with all the processes included in the calculations.\n\n## specify the input voxelmodel and parameter table\npath_to_subsurface_model = \"my_subsurface_model.nc\"\npath_to_parameter_table = \"my_parameter_table.nc\"\n\n## input for AdaptiveCellsize\nmax_voxel_thickness = 0.25 # m\nsplit_tolerance = 0.01 # m\n\n## input for Timestepper\nstart_day = 1.0\nmultiplier = 2\n\nmodel = Atlans.Model(\n    Atlans.HydrostaticGroundwater,\n    Atlans.DrainingAbcIsotache,\n    Atlans.CarbonStore,\n    Atlans.OverConsolidationRatio,\n    Atlans.SimpleShrinkage,\n    Atlans.AdaptiveCellsize(max_voxel_thickness, split_tolerance),\n    Atlans.ExponentialTimeStepper(start_day, multiplier),\n    path_to_subsurface_model,\n    path_to_parameter_table,\n)\n\n\n\nAdd forcings\nAtlans simulations also need input for Forcings such as water level management (e.g. groundwater table lowering) at each stress period. The input for forcings is a namedtuple containing the names of the forcings as keys and the Atlans Forcing objects as values. See the available for the available Forcing mechanisms and API reference for the inputs.\nThe example below shows how to include a single forcing (StageChange) in a Simulation:\n\npath_to_forcing = \"stage_change.nc\"\n\nforcings = (\n    stage_change=Atlans.StageChange(path_to_forcing)\n)\n\n\n\nStress periods\nAtlans calculates subsidence over stress periods. A Simulation can be run over one or multiple stress periods. Atlans automatically determines the stress periods based on the time dimensions of the input forcings. An additional option is to define additional stess periods which are not in the time dimensions of the forcings, for instance to divide a single stress period in the forcing in smaller time steps.\nFor example: assume that the input StageChange has three stress periods of five years (2025, 2030 and 2035) but smaller time steps are desired in the first stress period. This can be done by providing a Vector containing DateTime objects of the additionally desired time steps:\n\n# Add yearly stress periods\nadditional_periods = map(\n    DateTime,\n    ['2021-01-01', '2022-01-01', '2023-01-01', '2024-01-01']\n)\n\n\n\nBuild and run the Simulation\nThe only remaining input for the Simulation is the end date and a destination path of the output netcdf. The end date can be equal to the date of the last forcing period or correspond to an extra forcing period. The input for end date is a DateTime object. Now all the inputs are present and the Simulation object can be built:\n\noutput_path = \"output.nc\"\nstop_time = DateTime(\"2040-01-01\") # Chosen end date is an extra forcing period\n\nsimulation = Atlans.Simulation(\n    model,\n    output_path,\n    stop_time,\n    forcings,\n    additional_periods\n)\n\nFinally, the Simulation can be run by:\n\nAtlans.run!(simulation)",
+    "crumbs": [
+      "Usage",
+      "Run simulations"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Atlantis Subsidence",
+    "section": "",
+    "text": "Atlantis is a modelling environment which is implemented in the Julia programming language. The source code can found in the GitHub.\n\nInstallation\nAtlans is available in the general package registry. Installation in the Julia REPL:\njulia&gt; using Pkg; Pkg.add(\"Atlans\")\nor, from the package manager (press ] in the Julia REPL to enter):\npkg&gt; add Atlans\n\n\nBackground\nAtlans is a tool that can be used to create regional and national scale predictions of soil subsidence based on 3D voxelmodels of the subsurface buildup and scenarios of for example phreatic groundwater level management.\n\n\n\n\n\n\nFig. 1. Flow diagram of the main workflow of Atlans (*= impacted by climate change).\n\n\n\nSubsidence is calculated per 1D subsurface column as the sum of a combination of three processes: consolidation, oxidation and shrinkage. In general, Atlans does not consider horizontal interaction between individual columns. Currently, the only horizontal interaction is the possibility to apply a periodic groundwater table lowering based on the median subsidence within a regional area (for example within weir areas).\nBesides the 3D subsurface model, the predictions of subsidence heavily rely on an input groundwater table which is typically a long-term mean lowest groundwater table (MLGT; in Dutch: GLG). This groundwater table is used to determine the depths where oxidation and shrinkage processes contribute to subsidence. Furthermore, calculations of consolidation use the groundwater table to determine water- and exchange pore-pressures. The modelling concepts and equations are explained further on the Atlantis page and an explanation of the installation, along with examples of the usage can be found on the Usage page."
+  },
+  {
+    "objectID": "data/index.html",
+    "href": "data/index.html",
+    "title": "Data requirements",
+    "section": "",
+    "text": "(Topics on this page)\n\nWhat is needed in order to run Atlans\nExplanation of a subsurface model\nWhich layers need to be present in the input model: maybe divide over mandatory layers and layers per process\nStructure of the model axes\nDescription of the input layers",
+    "crumbs": [
+      "Input Data",
+      "Data requirements"
     ]
   }
 ]
