@@ -345,7 +345,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#package-status" id="toc-package-status" class="nav-link" data-scroll-target="#package-status">Package status</a></li>
   </ul>
 </nav>
@@ -374,6 +375,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Atlantis is a modelling environment which is implemented in the <a href="https://julialang.org/">Julia programming language</a>. The source code can be found on <a href="https://github.com/Deltares-research/Atlans.jl">GitHub</a>.</p>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p><code>Atlans</code> is a tool that can be used to create regional and national scale predictions of soil subsidence based on 3D voxelmodels of the subsurface buildup and scenarios of for example phreatic groundwater level management.</p>
+<div id="fig-workflow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./_static/images/flow_diagram.png" class="img-fluid figure-img" width="560">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Fig.&nbsp;1. Flow diagram of the main workflow of Atlans (*= impacted by climate change).
+</figcaption>
+</figure>
+</div>
+<p>Subsidence is calculated per 1D subsurface column as the sum of a combination of three processes: <a href="./core/consolidation.html">consolidation</a>, <a href="./core/oxidation.html">oxidation</a> and <a href="./core/shrinkage.html">shrinkage</a>. In general, <code>Atlans</code> does not consider horizontal interaction between individual columns. Currently, the only horizontal interaction is the possibility to apply a periodic groundwater table lowering based on the median subsidence within a regional area (for example within weir areas).</p>
+<p>Besides the 3D subsurface model, the predictions of subsidence heavily rely on an input groundwater table which is typically a long-term mean lowest groundwater table (MLGT; in Dutch: GLG). This groundwater table is used to determine the depths where oxidation and shrinkage processes contribute to subsidence. Furthermore, calculations of consolidation use the groundwater table to determine water- and exchange pore-pressures. The modelling concepts and equations are explained further on the <a href="./core/index.html">Atlantis</a> page and an explanation of the installation, along with examples of the usage can be found on the <a href="./usage/index.html">Usage</a> page.</p>
+</section>
 <section id="installation" class="level1">
 <h1>Installation</h1>
 <p><code>Atlans</code> is available from the general package registry. Installation in the Julia REPL:</p>

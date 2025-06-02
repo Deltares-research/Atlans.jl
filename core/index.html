@@ -372,8 +372,7 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#subjects-to-cover-in-this-page" id="toc-subjects-to-cover-in-this-page" class="nav-link" data-scroll-target="#subjects-to-cover-in-this-page">Subjects to cover in this page:</a></li>
+  <li><a href="#subjects-to-cover-in-this-page" id="toc-subjects-to-cover-in-this-page" class="nav-link active" data-scroll-target="#subjects-to-cover-in-this-page">Subjects to cover in this page:</a></li>
   <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a>
   <ul class="collapse">
   <li><a href="#column" id="toc-column" class="nav-link" data-scroll-target="#column">Column</a>
@@ -411,27 +410,11 @@ div.csl-indent {
 </header>
 
 
-<section id="background" class="level1">
-<h1>Background</h1>
-<p><code>Atlans</code> is a tool that can be used to create regional and national scale predictions of soil subsidence based on 3D voxelmodels of the subsurface buildup and scenarios of for example phreatic groundwater level management.</p>
-<div id="fig-workflow" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./_static/images/flow_diagram.png" class="img-fluid figure-img" width="560">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Fig.&nbsp;1.. Flow diagram of the main workflow of Atlans (*= impacted by climate change).
-</figcaption>
-</figure>
-</div>
-<p>Subsidence is calculated per 1D subsurface column as the sum of a combination of three processes: <a href="core/consolidation.qmd">consolidation</a>, <a href="core/oxidation.qmd">oxidation</a> and <a href="core/shrinkage.qmd">shrinkage</a>. In general, <code>Atlans</code> does not consider horizontal interaction between individual columns. Currently, the only horizontal interaction is the possibility to apply a periodic groundwater table lowering based on the median subsidence within a regional area (for example within weir areas).</p>
-<p>Besides the 3D subsurface model, the predictions of subsidence heavily rely on an input groundwater table which is typically a long-term mean lowest groundwater table (MLGT; in Dutch: GLG). This groundwater table is used to determine the depths where oxidation and shrinkage processes contribute to subsidence. Furthermore, calculations of consolidation use the groundwater table to determine water- and exchange pore-pressures. The modelling concepts and equations are explained further on the <a href="core/index.qmd">Atlantis</a> page and an explanation of the installation, along with examples of the usage can be found on the <a href="usage/index.qmd">Usage</a> page.</p>
-</section>
 <section id="subjects-to-cover-in-this-page" class="level1">
 <h1>Subjects to cover in this page:</h1>
 <ul>
 <li><p>The input model for <code>Atlans</code> is constructed from the subsurface model, groundwater table and elevation data.</p></li>
-<li><p>Time dimensions is categorized in terms of stress periods and time steps (<a href="#fig-schematic" class="quarto-xref">Fig.&nbsp;2</a> b). A stress period is the time during which a constant stress is applied (for example the surface water stage in a management area or a surcharge). Within a stress period, time is discretized into individual timesteps. A stress period therefore generally consists of multiple timesteps. A complete model simulation can consist of one or multiple stress periods which may all vary in duration.</p></li>
+<li><p>Time dimensions is categorized in terms of stress periods and time steps (<a href="#fig-schematic" class="quarto-xref">Fig.&nbsp;1</a> b). A stress period is the time during which a constant stress is applied (for example the surface water stage in a management area or a surcharge). Within a stress period, time is discretized into individual timesteps. A stress period therefore generally consists of multiple timesteps. A complete model simulation can consist of one or multiple stress periods which may all vary in duration.</p></li>
 <li><p>In each time step, a consolidation, oxidation and shrinkage calculation is performed and the resulting loss in elevation due to each process is stored.</p></li>
 <li><p>Core of <code>Atlans</code> are the Model and Simulation objects</p></li>
 <li><p>Explanation of what the model consists of -&gt; a collection of columns consisting of 4 types of columns -&gt; groundwater, consolidation, oxidation and shrinkage columns (maybe include figure of this concept)</p></li>
@@ -444,7 +427,7 @@ Fig.&nbsp;1.. Flow diagram of the main workflow of Atlans (*= impacted by climat
 <img src="../_static/images/schematic_modelling.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Fig.&nbsp;2.. Schematic overview of the <code>Atlans</code> modelling framework. (a) representation of a single modelling cycle in a stress period. (b) Time discretization of the model in terms of stress periods and time steps. Adapted from <span class="citation" data-cites="bootsma2020atlantis">Bootsma, Kooi, and Erkens (<a href="#ref-bootsma2020atlantis" role="doc-biblioref">2020</a>)</span>.
+Fig.&nbsp;1.. Schematic overview of the <code>Atlans</code> modelling framework. (a) representation of a single modelling cycle in a stress period. (b) Time discretization of the model in terms of stress periods and time steps. Adapted from <span class="citation" data-cites="bootsma2020atlantis">Bootsma, Kooi, and Erkens (<a href="#ref-bootsma2020atlantis" role="doc-biblioref">2020</a>)</span>.
 </figcaption>
 </figure>
 </div>
@@ -458,7 +441,7 @@ Fig.&nbsp;2.. Schematic overview of the <code>Atlans</code> modelling framework.
 <img src="../_static/images/components_model.png" class="img-fluid figure-img" width="400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-components-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Fig.&nbsp;3.. Main components of an <code>Atlans</code> subsurface model that is used for modelling simulations.
+Fig.&nbsp;2.. Main components of an <code>Atlans</code> subsurface model that is used for modelling simulations.
 </figcaption>
 </figure>
 </div>
