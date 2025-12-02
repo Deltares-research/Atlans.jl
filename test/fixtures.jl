@@ -483,8 +483,8 @@ function surcharge_profiles_netcdf()
         thickness = defVar(ds, "thickness", Float64, ("x", "y", "layer", "time"))
 
         lithology .= 2
-        thickness[:, :, 1] .= 0.5
-        thickness[:, :, 2] .= 0.25
+        thickness[:, :, 1, :] .= 0.5
+        thickness[:, :, 2, :] .= 0.25
     end
     return filename
 end
