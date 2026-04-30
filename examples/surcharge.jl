@@ -23,20 +23,20 @@ subsoil = Atlans.prepare_subsoil_data(path_subsurface_model, path_table)
 
 update_domainbase!(subsoil)
 
-model = Atlans.Model(
-    Atlans.HydrostaticGroundwater,
-    Atlans.DrainingAbcIsotache,
-    Atlans.NullOxidation,
-    Atlans.OverConsolidationRatio,
-    Atlans.NullShrinkage,
-    Atlans.AdaptiveCellsize(0.25, 0.01),
-    Atlans.ExponentialTimeStepper(1.0, 2),
+model = Model(
+    HydrostaticGroundwater,
+    DrainingAbcIsotache,
+    NullOxidation,
+    OverConsolidationRatio,
+    NullShrinkage,
+    AdaptiveCellsize(0.25, 0.01),
+    ExponentialTimeStepper(1.0, 2),
     subsoil,
 )
 
-forcing = Atlans.Forcings(; surcharge = Atlans.Surcharge(path_surcharge, path_table))
+forcing = Forcings(; surcharge = Surcharge(path_surcharge, path_table))
 
-simulation = Atlans.Simulation(
+simulation = Simulation(
     model,
     joinpath(workdir, "testrun.nc"),
     DateTime("2080-01-01");
@@ -44,4 +44,4 @@ simulation = Atlans.Simulation(
     additional_times = [DateTime("2023-01-01")],
 )
 
-Atlans.run!(simulation)
+run!(simulation)

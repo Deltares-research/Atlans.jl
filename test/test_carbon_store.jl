@@ -5,7 +5,7 @@
     f_minimum_organic = 0.05
     α = 1.0e-3
 
-    cell = Atlans.CarbonStore(
+    cell = CarbonStore(
         Δz,
         f_organic,
         f_minimum_organic,
