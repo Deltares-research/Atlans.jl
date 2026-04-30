@@ -12,6 +12,27 @@ using ProgressMeter
 using LoggingExtras
 using TerminalLoggers
 
+export Model,
+	HydrostaticGroundwater,
+	DrainingAbcIsotache,
+	CarbonStore,
+	OverConsolidationRatio,
+    SimpleShrinkage,
+	NullConsolidation,
+    NullOxidation,
+    NullShrinkage,
+	AdaptiveCellsize,
+	ExponentialTimeStepper,
+	Simulation,
+	Forcings,
+	StageIndexation,
+	DeepSubsidence,
+	StageChange,
+	AquiferHead,
+	Surcharge,
+	Temperature,
+    run!
+
 const Float = Float64
 const OptionalFloat = Union{Float, Missing}
 const OptionalInt = Union{Int, Missing}

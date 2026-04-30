@@ -22,7 +22,7 @@ function draining_abc_isotache_cell()
     τ = 1.0
     consolidation = 0.0
 
-    return Atlans.DrainingAbcIsotache(
+    return DrainingAbcIsotache(
         Δz,
         Δz,
         t,
@@ -47,7 +47,7 @@ function carbon_store_cell()
     Δz = 1.0
     f_minimum_organic = 0.05
     α = 1.0e-3
-    return Atlans.CarbonStore(Δz, f_organic, f_minimum_organic, ρb, α)
+    return CarbonStore(Δz, f_organic, f_minimum_organic, ρb, α)
 end
 
 
@@ -56,7 +56,7 @@ function shrinkage_cell()
     n = 1.7
     m_clay = 0.7
     m_organic = 0.2
-    return Atlans.SimpleShrinkage(Δz, n, m_clay, m_organic)
+    return SimpleShrinkage(Δz, n, m_clay, m_organic)
 end
 
 
@@ -70,7 +70,7 @@ function draining_abc_isotache_column()
     σ′ = fill(NaN, 4)
     p = fill(NaN, 4)
     result = fill(NaN, 4)
-    preconsolidation = Atlans.OverConsolidationRatio(fill(2.15, 4))
+    preconsolidation = OverConsolidationRatio(fill(2.15, 4))
 
     return Atlans.ConsolidationColumn(cells, z, Δz, σ, σ′, p, preconsolidation, result)
 end
@@ -106,7 +106,7 @@ function hydrostatic_groundwater()
     dry = fill(false, 4)
     p = fill(NaN, 4)
 
-    return Atlans.HydrostaticGroundwater(z, phreatic, dry, p)
+    return HydrostaticGroundwater(z, phreatic, dry, p)
 end
 
 
@@ -126,7 +126,7 @@ function soil_column_hg_abc_cs_shr()
         fill(NaN, ncells), # σ
         fill(NaN, ncells), # σ′
         fill(NaN, ncells), # p
-        Atlans.OverConsolidationRatio(fill(2.15, ncells)),
+        OverConsolidationRatio(fill(2.15, ncells)),
         fill(0.0, ncells), # result
     )
 
@@ -147,7 +147,7 @@ function soil_column_hg_abc_cs_shr()
         0.2,
     )
 
-    gw = Atlans.HydrostaticGroundwater(
+    gw = HydrostaticGroundwater(
         z,
         Atlans.Phreatic(3.0),
         fill(false, ncells),
@@ -174,12 +174,12 @@ function soil_column_hg_abc_nullox_nullshr()
         fill(NaN, ncells), # σ
         fill(NaN, ncells), # σ′
         fill(NaN, ncells), # p
-        Atlans.OverConsolidationRatio(fill(2.15, ncells)),
+        OverConsolidationRatio(fill(2.15, ncells)),
         fill(0.0, ncells), # result
     )
 
     oc = Atlans.OxidationColumn(
-        fill(Atlans.NullOxidation(), ncells),
+        fill(NullOxidation(), ncells),
         z,
         Δz,
         fill(0.0, ncells),
@@ -188,14 +188,14 @@ function soil_column_hg_abc_nullox_nullshr()
     )
 
     shr = Atlans.ShrinkageColumn(
-        fill(Atlans.NullShrinkage(), ncells),
+        fill(NullShrinkage(), ncells),
         z,
         Δz,
         fill(0.0, ncells),
         0.2,
     )
 
-    gw = Atlans.HydrostaticGroundwater(
+    gw = HydrostaticGroundwater(
         z,
         Atlans.Phreatic(3.0),
         fill(false, ncells),
@@ -216,13 +216,13 @@ function soil_column_hg_nullcons_cs_nullshr()
     ncells = 4
 
     cc = Atlans.ConsolidationColumn(
-        fill(Atlans.NullConsolidation(), ncells),
+        fill(NullConsolidation(), ncells),
         z,
         Δz,
         fill(NaN, ncells), # σ
         fill(NaN, ncells), # σ′
         fill(NaN, ncells), # p
-        Atlans.OverConsolidationRatio(fill(NaN, ncells)),
+        OverConsolidationRatio(fill(NaN, ncells)),
         fill(0.0, ncells), # result
     )
 
@@ -236,14 +236,14 @@ function soil_column_hg_nullcons_cs_nullshr()
     )
 
     shr = Atlans.ShrinkageColumn(
-        fill(Atlans.NullShrinkage(), ncells),
+        fill(NullShrinkage(), ncells),
         z,
         Δz,
         fill(0.0, ncells),
         0.2,
     )
 
-    gw = Atlans.HydrostaticGroundwater(
+    gw = HydrostaticGroundwater(
         z,
         Atlans.Phreatic(3.0),
         fill(false, ncells),
@@ -264,18 +264,18 @@ function soil_column_hg_nullcons_nullox_shr()
     ncells = 4
 
     cc = Atlans.ConsolidationColumn(
-        fill(Atlans.NullConsolidation(), ncells),
+        fill(NullConsolidation(), ncells),
         z,
         Δz,
         fill(NaN, ncells), # σ
         fill(NaN, ncells), # σ′
         fill(NaN, ncells), # p
-        Atlans.OverConsolidationRatio(fill(NaN, ncells)),
+        OverConsolidationRatio(fill(NaN, ncells)),
         fill(0.0, ncells), # result
     )
 
     oc = Atlans.OxidationColumn(
-        fill(Atlans.NullOxidation(), ncells),
+        fill(NullOxidation(), ncells),
         z,
         Δz,
         fill(0.0, ncells),
@@ -291,7 +291,7 @@ function soil_column_hg_nullcons_nullox_shr()
         0.2,
     )
 
-    gw = Atlans.HydrostaticGroundwater(
+    gw = HydrostaticGroundwater(
         z,
         Atlans.Phreatic(3.0),
         fill(false, ncells),
@@ -491,15 +491,15 @@ end
 
 
 function test_forcings()
-    si = Atlans.StageIndexation(AtlansFixtures.stage_indexation_netcdf(), 50)
-    sc = Atlans.StageChange(AtlansFixtures.stage_change_netcdf())
-    ds = Atlans.DeepSubsidence(AtlansFixtures.deep_subsidence_netcdf())
-    t = Atlans.Temperature(AtlansFixtures.temperature_table())
-    sur = Atlans.Surcharge(
+    si = StageIndexation(AtlansFixtures.stage_indexation_netcdf(), 50)
+    sc = StageChange(AtlansFixtures.stage_change_netcdf())
+    ds = DeepSubsidence(AtlansFixtures.deep_subsidence_netcdf())
+    t = Temperature(AtlansFixtures.temperature_table())
+    sur = Surcharge(
         AtlansFixtures.simple_surcharge_netcdf(),
         AtlansFixtures.params_table(),
     )
-    return Atlans.Forcings(;
+    return Forcings(
         stage_change = sc,
         stage_indexation = si,
         deep_subsidence = ds,
@@ -513,14 +513,14 @@ function testing_model()
     path_csv = AtlansFixtures.params_table()
     path_nc = AtlansFixtures.subsoil_netcdf()
 
-    return Atlans.Model(
-        Atlans.HydrostaticGroundwater,
-        Atlans.DrainingAbcIsotache,
-        Atlans.CarbonStore,
-        Atlans.OverConsolidationRatio,
-        Atlans.SimpleShrinkage,
-        Atlans.AdaptiveCellsize(0.25, 0.01),
-        Atlans.ExponentialTimeStepper(1.0, 2),
+    return Model(
+        HydrostaticGroundwater,
+        DrainingAbcIsotache,
+        CarbonStore,
+        OverConsolidationRatio,
+        SimpleShrinkage,
+        AdaptiveCellsize(0.25, 0.01),
+        ExponentialTimeStepper(1.0, 2),
         path_nc,
         path_csv,
     )

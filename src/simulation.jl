@@ -1,5 +1,7 @@
+using CommonDataModel: SubDataset
+
 struct Reader
-	dataset::NCDataset
+	dataset::Union{NCDataset, SubDataset}
 	params::Dict{Symbol, String}
 	times::Vector{DateTime}
 end
@@ -103,7 +105,7 @@ function prepare_domain(
 
 	Δz = thickness[base_index:top_index]
 	index, ncells = discretize(Δz, Δzmax)
-	Δz = (Δz./ncells)[index]
+	Δz = (Δz ./ ncells)[index]
 	z = zbot[base_index] .+ cumsum(Δz) .- 0.5 .* Δz
 	n = sum(ncells)
 	index .+= (base_index - 1)
@@ -122,7 +124,8 @@ end
 		adaptive_cellsize,
 		timestepper,
 		path_subsoil,
-		path_lookup
+		path_lookup,
+		bbox::Union{Nothing, NTuple{4, <:Real}} = nothing,
 	)
 
 Initialize a model with specified groundwater, consolidation, oxidation and
@@ -138,9 +141,10 @@ function Model(
 	adaptive_cellsize,
 	timestepper,
 	path_subsoil,
-	path_lookup,
+	path_lookup;
+	bbox::Union{Nothing, NTuple{4, <:Real}} = nothing,
 )
-	subsoil = prepare_subsoil_data(path_subsoil, path_lookup)
+	subsoil = prepare_subsoil_data(path_subsoil, path_lookup; bbox = bbox)
 	Model(
 		groundwater,
 		consolidation,
@@ -382,7 +386,7 @@ function set_periods!(simulation, additional_times)
 		else
 			times = forcing.reader.times
 		end
-		append!(alltimes, times[times.<stop_time])
+		append!(alltimes, times[times .< stop_time])
 	end
 
 	for time in additional_times

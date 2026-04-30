@@ -1,4 +1,4 @@
-mutable struct Base
+mutable struct ColumnBase
 	z::Float
 end
 
@@ -6,7 +6,7 @@ end
 x, y, z are all midpoints.
 """
 struct SoilColumn{G, C, P, O, S}
-	base::Base
+	base::ColumnBase
 	x::Float
 	y::Float
 	z::Vector{Float}
@@ -19,7 +19,7 @@ struct SoilColumn{G, C, P, O, S}
 end
 
 function SoilColumn(
-	base::Float,
+	base::Float64,
 	x,
 	y,
 	z,
@@ -30,7 +30,7 @@ function SoilColumn(
 	shrinkage,
 )
 	return SoilColumn(
-		Base(base),
+		ColumnBase(base),
 		x,
 		y,
 		z,
@@ -46,17 +46,17 @@ end
 surface_level(column) = column.z[end] + 0.5 * column.Δz[end]
 
 
-function set_deep_subsidence!(column::SoilColumn, subsidence::Float)
+function set_deep_subsidence!(column::SoilColumn, subsidence::Float64)
 	column.base.z -= subsidence
 	update_z!(column)
 end
 
-function set_aquifer!(column::SoilColumn, ϕ)
+function set_aquifer!(column::SoilColumn, ϕ::Float64)
 	set_aquifer!(column.groundwater, ϕ)
 	return
 end
 
-function set_aquifer_difference!(column::SoilColumn, Δϕ)
+function set_aquifer_difference!(column::SoilColumn, Δϕ::Float64)
 	set_aquifer_difference!(column.groundwater, Δϕ)
 	return
 end
