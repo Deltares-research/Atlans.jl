@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>index – Atlans.jl</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-d4e7164801876f6d2fd3aa15ac80b4c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-4c566427df3bab355605704658c58164.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c15efd1f028b3aeee056c8e4cd8071a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-1dbdcaa121cf600011fc8e1bf3b192cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-c15efd1f028b3aeee056c8e4cd8071a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -390,16 +393,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="types" class="level2">
 <h2 class="anchored" data-anchor-id="types">Types</h2>
 <p><a id="Atlans.AdaptiveCellsize" href="#Atlans.AdaptiveCellsize">#</a> <strong><code>Atlans.AdaptiveCellsize</code></strong> — <em>Type</em>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AdaptiveCellsize</span>(Δzmax<span class="op">::</span><span class="dt">Float</span>, split_tolerance<span class="op">::</span><span class="dt">Float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AdaptiveCellsize</span>(Δzmax<span class="op">::</span><span class="dt">Float</span>, split_tolerance<span class="op">::</span><span class="dt">Float</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Logic for splitting cells in a column to accomodate for a moving phreatic level in combination with organic matter stores. Handles how the thickness of thick voxels (&gt;Δzmax) should be discretized and determines when splitting occurs. If the thickness of a cell above, or below, the groundwater table is lower than the tolerance, no splitting occurs.</p>
 <p><a id="Atlans.Clock" href="#Atlans.Clock">#</a> <strong><code>Atlans.Clock</code></strong> — <em>Type</em>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Clock</span>(time<span class="op">::</span><span class="dt">Vector{DateTime}</span>, iteration<span class="op">::</span><span class="dt">int</span>, stop_time<span class="op">::</span><span class="dt">DateTime</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Clock</span>(time<span class="op">::</span><span class="dt">Vector{DateTime}</span>, iteration<span class="op">::</span><span class="dt">int</span>, stop_time<span class="op">::</span><span class="dt">DateTime</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Object to keep track of the stress periods, number of iterations and stop time of an Atlantis Simulation.</p>
 <p><a id="Atlans.ExponentialTimeStepper" href="#Atlans.ExponentialTimeStepper">#</a> <strong><code>Atlans.ExponentialTimeStepper</code></strong> — <em>Type</em>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ExponentialTimestepper</span>(start<span class="op">::</span><span class="dt">Float</span>, multiplier<span class="op">::</span><span class="dt">T</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ExponentialTimestepper</span>(start<span class="op">::</span><span class="dt">Float</span>, multiplier<span class="op">::</span><span class="dt">T</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Struct to discretize time steps (in days) within each stress period.</p>
 <p><a id="Atlans.Model-Tuple{Type, Type, Type, Type, Type, Vararg{Any, 4}}" href="#Atlans.Model-Tuple{Type, Type, Type, Type, Type, Vararg{Any, 4}}">#</a> <strong><code>Atlans.Model</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Model</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Model</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    groundwater<span class="op">::</span><span class="dt">Type</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    consolidation<span class="op">::</span><span class="dt">Type</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    oxidation<span class="op">::</span><span class="dt">Type</span>,</span>
@@ -409,10 +412,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    timestepper,</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    path_subsoil,</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    path_lookup</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a model with specified groundwater, consolidation, oxidation and shrinkage processes from a netCDF file and CSV lookup table describing the subsurface parameters, appropriate for the chosen processes.</p>
 <p><a id="Atlans.ShrinkageColumn" href="#Atlans.ShrinkageColumn">#</a> <strong><code>Atlans.ShrinkageColumn</code></strong> — <em>Type</em>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ShrinkageColumn</span><span class="dt">{S}</span>(cells, z, Δz, result, Hv0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ShrinkageColumn</span><span class="dt">{S}</span>(cells, z, Δz, result, Hv0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Collection of SimpleShrinkage cells to compute shrinkage for.</p>
 <p><strong>Arguments:</strong></p>
 <ul>
@@ -423,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>Hv0::Float</code>: Absolute depth above phreatic level to compute shrinkage for in cells.</li>
 </ul>
 <p><a id="Atlans.SimpleShrinkage" href="#Atlans.SimpleShrinkage">#</a> <strong><code>Atlans.SimpleShrinkage</code></strong> — <em>Type</em>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SimpleShrinkage</span>(Δz, n, τ, r, shrinkage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SimpleShrinkage</span>(Δz, n, τ, r, shrinkage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Simple voxel with attributes to compute shrinkage for.</p>
 <p>#Arguments</p>
 <ul>
@@ -437,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>shrinkage::Float</code>: Computed shrinkage or elevation change over time. [m]</li>
 </ul>
 <p><a id="Atlans.Simulation-Tuple{Atlans.Model, String, Dates.DateTime}" href="#Atlans.Simulation-Tuple{Atlans.Model, String, Dates.DateTime}">#</a> <strong><code>Atlans.Simulation</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Simulation</span>(model, path_output, stop_time, forcings, additional_times)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Simulation</span>(model, path_output, stop_time, forcings, additional_times)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Setup a simulation from an initialized model.</p>
 <p><a id="Atlans.SoilColumn" href="#Atlans.SoilColumn">#</a> <strong><code>Atlans.SoilColumn</code></strong> — <em>Type</em>.</p>
 <p>x, y, z are all midpoints.</p>
@@ -462,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a id="Atlans.advance_forcingperiod!-Tuple{Any}" href="#Atlans.advance_forcingperiod!-Tuple{Any}">#</a> <strong><code>Atlans.advance_forcingperiod!</code></strong> — <em>Method</em>.</p>
 <p>Advance the simulation by a single forcing period. Reads new input, computes, writes output.</p>
 <p><a id="Atlans.advance_forcingperiod!-Tuple{Atlans.SoilColumn, Vector{Float64}}" href="#Atlans.advance_forcingperiod!-Tuple{Atlans.SoilColumn, Vector{Float64}}">#</a> <strong><code>Atlans.advance_forcingperiod!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">advance_forcingperiod!</span>(column, timesteps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">advance_forcingperiod!</span>(column, timesteps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Advances a prepared column by a number of timesteps.</p>
 <p>Note, the correct order of execution is:</p>
 <ul>
@@ -471,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>advance forcing period</li>
 </ul>
 <p><a id="Atlans.advance_timestep!-Tuple{Atlans.SoilColumn, Float64}" href="#Atlans.advance_timestep!-Tuple{Atlans.SoilColumn, Float64}">#</a> <strong><code>Atlans.advance_timestep!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">advance_timestep!</span>(column, Δt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">advance_timestep!</span>(column, Δt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Advance a single timestep.</p>
 <p>During a timestep the following states are computed:</p>
 <pre><code>* head
@@ -483,14 +486,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a id="Atlans.cellsplit!-Tuple{Atlans.OxidationColumn{Atlans.CarbonStore}, Vararg{Any, 4}}" href="#Atlans.cellsplit!-Tuple{Atlans.OxidationColumn{Atlans.CarbonStore}, Vararg{Any, 4}}">#</a> <strong><code>Atlans.cellsplit!</code></strong> — <em>Method</em>.</p>
 <p>For CarbonStore, organic and mineral mass should be split according to cell height (Δz).</p>
 <p><a id="Atlans.cellsplit!-Tuple{Union{Atlans.ConsolidationColumn{Atlans.NullConsolidation, Atlans.OverConsolidationRatio}, Atlans.OxidationColumn{Atlans.NullOxidation}, Atlans.ShrinkageColumn{Atlans.NullShrinkage}}, Vararg{Any, 4}}" href="#Atlans.cellsplit!-Tuple{Union{Atlans.ConsolidationColumn{Atlans.NullConsolidation, Atlans.OverConsolidationRatio}, Atlans.OxidationColumn{Atlans.NullOxidation}, Atlans.ShrinkageColumn{Atlans.NullShrinkage}}, Vararg{Any, 4}}">#</a> <strong><code>Atlans.cellsplit!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cellsplit!</span>(column, _, newlength, _, _,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cellsplit!</span>(column, _, newlength, _, _,)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Logic for cellsplit! if one of the processes is ignored (e.g.&nbsp;NullConsolidation).</p>
 <p><a id="Atlans.compress_γ_dry-Tuple{Atlans.ConsolidationProcess, Float64}" href="#Atlans.compress_γ_dry-Tuple{Atlans.ConsolidationProcess, Float64}">#</a> <strong><code>Atlans.compress_γ_dry</code></strong> — <em>Method</em>.</p>
 <p>Consolidation reduces pore space, pushes out the air.</p>
 <p><a id="Atlans.compress_γ_wet-Tuple{Atlans.ConsolidationProcess, Float64}" href="#Atlans.compress_γ_wet-Tuple{Atlans.ConsolidationProcess, Float64}">#</a> <strong><code>Atlans.compress_γ_wet</code></strong> — <em>Method</em>.</p>
 <p>Consolidation reduces pore space, pushes out the water.</p>
 <p><a id="Atlans.consolidate-Tuple{Atlans.DrainingAbcIsotache, Any, Any}" href="#Atlans.consolidate-Tuple{Atlans.DrainingAbcIsotache, Any, Any}">#</a> <strong><code>Atlans.consolidate</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">consolidate</span>(abc<span class="op">::</span><span class="dt">DrainingAbcIsotache</span>, σ′, Δt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">consolidate</span>(abc<span class="op">::</span><span class="dt">DrainingAbcIsotache</span>, σ′, Δt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Compute consolidation for a single cell.</p>
 <p>The cell contains a state U for Terzaghi’s degree of consolidation. This state is updated every consolidate step. During every Δt, a new U is computed. The increase in U can be directly related to the pore pressure, and so the increase in effective stress is equal to the effective stress prior to loading (abc.σ′) and the new effective stress (σ′) reached when U becomes 1.0.</p>
 <p>The degree of consolidation plays only one role: it distributes the load (final σ′ - initial σ′) over time and as the column might be submerging, the increase in σ′ may become lower, providing a negative feedback mechanism.</p>
@@ -508,52 +511,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>First term of Taylor expansion</p>
 <p>f(x) ~= f(a) + f′(a) * (x - a)</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Any, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Any, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{CarbonStore}</span>, domain, subsoil, I)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{CarbonStore}</span>, domain, subsoil, I)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a OxidationColumn for a domain at location I based subsurface input.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Atlans.VerticalDomain, Dict}" href="#Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Atlans.VerticalDomain, Dict}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{CarbonStore}</span>, domain<span class="op">::</span><span class="dt">VerticalDomain</span>, lookup_table<span class="op">::</span><span class="dt">Dict</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{CarbonStore}</span>, domain<span class="op">::</span><span class="dt">VerticalDomain</span>, lookup_table<span class="op">::</span><span class="dt">Dict</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a OxidationSurcharge column that can be added to an OxidationColumn when Surcharge is applied as a forcing during a forcingperiod.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Any, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Any, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{DrainingAbcIsotache}</span>, domain, subsoil, I)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{DrainingAbcIsotache}</span>, domain, subsoil, I)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a ConsolidationColumn for a domain at location I based subsurface input.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Atlans.VerticalDomain, Dict}" href="#Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Atlans.VerticalDomain, Dict}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">::</span><span class="dt">Type{DrainingAbcIsotache}</span>,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    preconsolidation<span class="op">::</span><span class="dt">Type</span>,</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    domain<span class="op">::</span><span class="dt">VerticalDomain</span>,</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    lookup_table<span class="op">::</span><span class="dt">Dict</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a ConsolidationSurcharge column that can be added to a ConsolidationColumn when Surcharge is applied as a forcing during a forcingperiod.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.HydrostaticGroundwater}, Atlans.Phreatic, Atlans.VerticalDomain}" href="#Atlans.initialize-Tuple{Type{Atlans.HydrostaticGroundwater}, Atlans.Phreatic, Atlans.VerticalDomain}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{HydrostaticGroundwater}</span>, phreatic<span class="op">::</span><span class="dt">Phreatic</span>, domain<span class="op">::</span><span class="dt">VerticalDomain</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{HydrostaticGroundwater}</span>, phreatic<span class="op">::</span><span class="dt">Phreatic</span>, domain<span class="op">::</span><span class="dt">VerticalDomain</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a GroundwaterSurcharge column that can be added to a HydrostaticGroundwater column when Surcharge is applied as a forcing during a forcingperiod.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Type, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Type, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullConsolidation}</span>, preconsolidation<span class="op">::</span><span class="dt">Type</span>, domain, _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullConsolidation}</span>, preconsolidation<span class="op">::</span><span class="dt">Type</span>, domain, _)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize an empty ConsolidationSurcharge column when the consolidation process is ignored.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Vararg{Any, 4}}" href="#Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Vararg{Any, 4}}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullConsolidation}</span>, domain, subsoil, I)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullConsolidation}</span>, domain, subsoil, I)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize an empty ConsolidationColumn (i.e.&nbsp;consolidation is ignored) at location I.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain, subsoil, I)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain, subsoil, I)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize an empty OxidationColumn (i.e.&nbsp;oxidation is ignored) at location I.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullOxidation}</span>, domain, _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullOxidation}</span>, domain, _)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize an empty OxidationSurcharge column when the oxidation process is ignored.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain, subsoil, I)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain, subsoil, I)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize an empty ShrinkageColumn (i.e.&nbsp;shrinkage is ignored) at location I.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullShrinkage}</span>, domain, _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{NullShrinkage}</span>, domain, _)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize an empty ShrinkageSurcharge column when the shrinkage process is ignored.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Any, Any, Any}" href="#Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Any, Any, Any}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain, subsoil, I)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain, subsoil, I)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a ShrinkageColumn for a domain at location I based subsurface input.</p>
 <p><a id="Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Atlans.VerticalDomain, Dict}" href="#Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Atlans.VerticalDomain, Dict}">#</a> <strong><code>Atlans.initialize</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain<span class="op">::</span><span class="dt">VerticalDomain</span>, lookup_table<span class="op">::</span><span class="dt">Dict</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initialize</span>(<span class="op">::</span><span class="dt">Type{SimpleShrinkage}</span>, domain<span class="op">::</span><span class="dt">VerticalDomain</span>, lookup_table<span class="op">::</span><span class="dt">Dict</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Initialize a ShrinkageSurcharge column that can be added to an ShrinkageColumn when Surcharge is applied as a forcing during a forcingperiod.</p>
 <p><a id="Atlans.parse_loglevel-Tuple{AbstractString}" href="#Atlans.parse_loglevel-Tuple{AbstractString}">#</a> <strong><code>Atlans.parse_loglevel</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_loglevel</span>(input_level<span class="op">::</span><span class="dt">AbstractString</span>)<span class="op">::</span><span class="dt">LogLevel</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_loglevel</span>(input_level<span class="op">::</span><span class="dt">Integer</span>)<span class="op">::</span><span class="dt">LogLevel</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_loglevel</span>(input_level<span class="op">::</span><span class="dt">AbstractString</span>)<span class="op">::</span><span class="dt">LogLevel</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_loglevel</span>(input_level<span class="op">::</span><span class="dt">Integer</span>)<span class="op">::</span><span class="dt">LogLevel</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Parse a log level from either an integer or string.</p>
 <p><strong>Examples</strong></p>
 <pre><code>parse_loglevel("info") -&gt; Logging.Info
@@ -565,7 +568,7 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <p><a id="Atlans.prepare_domain-NTuple{7, Any}" href="#Atlans.prepare_domain-NTuple{7, Any}">#</a> <strong><code>Atlans.prepare_domain</code></strong> — <em>Method</em>.</p>
 <p>Temporary structure used to create SoilColumns.</p>
 <p><a id="Atlans.prepare_forcingperiod!" href="#Atlans.prepare_forcingperiod!">#</a> <strong><code>Atlans.prepare_forcingperiod!</code></strong> — <em>Function</em>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_forcingperiod!</span>(column, split_tolerance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_forcingperiod!</span>(column, split_tolerance)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Prepare a single forcing period.</p>
 <p>This:</p>
 <pre><code>* splits the soil column at maximum oxidation depth (if necessary)
@@ -576,20 +579,20 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <p><a id="Atlans.prepare_forcingperiod!-Tuple{Atlans.ConsolidationColumn{Atlans.DrainingAbcIsotache, P} where P<:Atlans.Preconsolidation}" href="#Atlans.prepare_forcingperiod!-Tuple{Atlans.ConsolidationColumn{Atlans.DrainingAbcIsotache, P} where P<:Atlans.Preconsolidation}">#</a> <strong><code>Atlans.prepare_forcingperiod!</code></strong> — <em>Method</em>.</p>
 <p>Reset degree of consolidation and time.</p>
 <p><a id="Atlans.prepare_surcharge_column-Tuple{Atlans.Surcharge, Atlans.SoilColumn, CartesianIndex}" href="#Atlans.prepare_surcharge_column-Tuple{Atlans.Surcharge, Atlans.SoilColumn, CartesianIndex}">#</a> <strong><code>Atlans.prepare_surcharge_column</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_surcharge_column</span>(sur<span class="op">::</span><span class="dt">Surcharge</span>, column<span class="op">::</span><span class="dt">SoilColumn</span>, I<span class="op">::</span><span class="dt">CartesianIndex</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_surcharge_column</span>(sur<span class="op">::</span><span class="dt">Surcharge</span>, column<span class="op">::</span><span class="dt">SoilColumn</span>, I<span class="op">::</span><span class="dt">CartesianIndex</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Create a SurchargeColumn with correct groundwater, consolidation, oxidation and shrinkage Surcharge columns. The correct Atlantis processes (e.g.&nbsp;DrainingAbcIsotache) that each of the Surcharge columns are built-up from, are derived from the input SoilColumn. The CartesianIndex reads to lithology and thickness to build the Surcharge column from at the correct location in the Surcharge forcing input.</p>
 <p><a id="Atlans.prepare_timestep!-Tuple{Atlans.SoilColumn, Any}" href="#Atlans.prepare_timestep!-Tuple{Atlans.SoilColumn, Any}">#</a> <strong><code>Atlans.prepare_timestep!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_timestep!</span>(column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_timestep!</span>(column)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Prepare a single timestep. This updates stresses in the column and accounts for e.g.&nbsp;drowning of the column.</p>
 <p>This computes:</p>
 <pre><code>* Pore pressure
 * Total stress
 * Effective stress</code></pre>
 <p><a id="Atlans.prepare_timestep!-Tuple{Atlans.SurchargeColumn, Any}" href="#Atlans.prepare_timestep!-Tuple{Atlans.SurchargeColumn, Any}">#</a> <strong><code>Atlans.prepare_timestep!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_timestep!</span>(column<span class="op">::</span><span class="dt">SurchargeColumn</span>, Δt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prepare_timestep!</span>(column<span class="op">::</span><span class="dt">SurchargeColumn</span>, Δt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Set the initial stresses for a SurchargeColumn.</p>
 <p><a id="Atlans.relative_oxidation_rate" href="#Atlans.relative_oxidation_rate">#</a> <strong><code>Atlans.relative_oxidation_rate</code></strong> — <em>Function</em>.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">relative_oxidation_rate</span>(T<span class="op">::</span><span class="dt">Float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">relative_oxidation_rate</span>(T<span class="op">::</span><span class="dt">Float</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Empirical relation between the decay rate of organic soils and air temperature in Celsius from Hendriks and Vermeulen (1997). Relation is valid between 0° and 19.5° Celsius.</p>
 <p><a id="Atlans.repeat_elements-Tuple{Any, Any}" href="#Atlans.repeat_elements-Tuple{Any, Any}">#</a> <strong><code>Atlans.repeat_elements</code></strong> — <em>Method</em>.</p>
 <p>Repeat function not in base / stdlib</p>
@@ -598,10 +601,10 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <p><a id="Atlans.set_periods!-Tuple{Any, Any}" href="#Atlans.set_periods!-Tuple{Any, Any}">#</a> <strong><code>Atlans.set_periods!</code></strong> — <em>Method</em>.</p>
 <p>Collect the period boundaries from the forcing input.</p>
 <p><a id="Atlans.set_surcharge!-Tuple{Atlans.SoilColumn, Atlans.SurchargeColumn}" href="#Atlans.set_surcharge!-Tuple{Atlans.SoilColumn, Atlans.SurchargeColumn}">#</a> <strong><code>Atlans.set_surcharge!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_surcharge!</span>(column<span class="op">::</span><span class="dt">SoilColumn</span>, surcharge<span class="op">::</span><span class="dt">SurchargeColumn</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_surcharge!</span>(column<span class="op">::</span><span class="dt">SoilColumn</span>, surcharge<span class="op">::</span><span class="dt">SurchargeColumn</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Combine a SoilColumn and SurchargeColumn when Surcharge is added as a forcing during a forcingperiod.</p>
 <p><a id="Atlans.shrink-Tuple{Atlans.SimpleShrinkage, Float64}" href="#Atlans.shrink-Tuple{Atlans.SimpleShrinkage, Float64}">#</a> <strong><code>Atlans.shrink</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shrink</span>(voxel, Δt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shrink</span>(voxel, Δt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Shrink a voxel for given time interval.</p>
 <p>#Arguments</p>
 <ul>
@@ -609,17 +612,17 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <li><code>Δt::Float</code>: Time interval. [days]</li>
 </ul>
 <p><a id="Atlans.subside!-Tuple{Atlans.SoilColumn}" href="#Atlans.subside!-Tuple{Atlans.SoilColumn}">#</a> <strong><code>Atlans.subside!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subside!</span>(column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subside!</span>(column)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Apply consolidation, oxidation and shrinkage to thickness</p>
 <p><a id="Atlans.total_stress!-Tuple{Atlans.AbstractConsolidationColumn, Any}" href="#Atlans.total_stress!-Tuple{Atlans.AbstractConsolidationColumn, Any}">#</a> <strong><code>Atlans.total_stress!</code></strong> — <em>Method</em>.</p>
 <p>Compute total stress for entire column</p>
 <p><a id="Atlans.transfer_stress!-Tuple{Atlans.AbstractConsolidationColumn}" href="#Atlans.transfer_stress!-Tuple{Atlans.AbstractConsolidationColumn}">#</a> <strong><code>Atlans.transfer_stress!</code></strong> — <em>Method</em>.</p>
 <p>Transfer computed stress to the cells of the ConsolidationColumn.</p>
 <p><a id="Atlans.update_alpha-Tuple{Atlans.CarbonStore, Float64}" href="#Atlans.update_alpha-Tuple{Atlans.CarbonStore, Float64}">#</a> <strong><code>Atlans.update_alpha</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update_alpha</span>(cell<span class="op">::</span><span class="dt">CarbonStore</span>, T<span class="op">::</span><span class="dt">Float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update_alpha</span>(cell<span class="op">::</span><span class="dt">CarbonStore</span>, T<span class="op">::</span><span class="dt">Float</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Return a new CarbonStore cell with an oxidation rate (α) that is corrected for air temperature.</p>
 <p><a id="Atlans.update_z!-Tuple{Atlans.SoilColumn}" href="#Atlans.update_z!-Tuple{Atlans.SoilColumn}">#</a> <strong><code>Atlans.update_z!</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update_z!</span>(column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">update_z!</span>(column)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Compute new midpoints and surface level.</p>
 <p><a id="Atlans.volume_organic-Tuple{Any, Any}" href="#Atlans.volume_organic-Tuple{Any, Any}">#</a> <strong><code>Atlans.volume_organic</code></strong> — <em>Method</em>.</p>
 <p>Empirical equation to compute specific volume of organic material.</p>
@@ -655,12 +658,12 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <li><a href="../build/index.html#Atlans.U-Tuple{Atlans.ConsolidationProcess, Float64}"><code>Atlans.U</code></a></li>
 <li><a href="../build/index.html#Atlans.add_time-Tuple{Any, Any}"><code>Atlans.add_time</code></a></li>
 <li><a href="../build/index.html#Atlans.advance!-Tuple{Any}"><code>Atlans.advance!</code></a></li>
-<li><a href="../build/index.html#Atlans.advance_forcingperiod!-Tuple{Atlans.SoilColumn, Vector{Float64}}"><code>Atlans.advance_forcingperiod!</code></a></li>
 <li><a href="../build/index.html#Atlans.advance_forcingperiod!-Tuple{Any, Any}"><code>Atlans.advance_forcingperiod!</code></a></li>
 <li><a href="../build/index.html#Atlans.advance_forcingperiod!-Tuple{Any}"><code>Atlans.advance_forcingperiod!</code></a></li>
+<li><a href="../build/index.html#Atlans.advance_forcingperiod!-Tuple{Atlans.SoilColumn, Vector{Float64}}"><code>Atlans.advance_forcingperiod!</code></a></li>
 <li><a href="../build/index.html#Atlans.advance_timestep!-Tuple{Atlans.SoilColumn, Float64}"><code>Atlans.advance_timestep!</code></a></li>
-<li><a href="../build/index.html#Atlans.cellsplit!-Tuple{Union{Atlans.ConsolidationColumn{Atlans.NullConsolidation, Atlans.OverConsolidationRatio}, Atlans.OxidationColumn{Atlans.NullOxidation}, Atlans.ShrinkageColumn{Atlans.NullShrinkage}}, Vararg{Any, 4}}"><code>Atlans.cellsplit!</code></a></li>
 <li><a href="../build/index.html#Atlans.cellsplit!-Tuple{Atlans.OxidationColumn{Atlans.CarbonStore}, Vararg{Any, 4}}"><code>Atlans.cellsplit!</code></a></li>
+<li><a href="../build/index.html#Atlans.cellsplit!-Tuple{Union{Atlans.ConsolidationColumn{Atlans.NullConsolidation, Atlans.OverConsolidationRatio}, Atlans.OxidationColumn{Atlans.NullOxidation}, Atlans.ShrinkageColumn{Atlans.NullShrinkage}}, Vararg{Any, 4}}"><code>Atlans.cellsplit!</code></a></li>
 <li><a href="../build/index.html#Atlans.compress_γ_dry-Tuple{Atlans.ConsolidationProcess, Float64}"><code>Atlans.compress_γ_dry</code></a></li>
 <li><a href="../build/index.html#Atlans.compress_γ_wet-Tuple{Atlans.ConsolidationProcess, Float64}"><code>Atlans.compress_γ_wet</code></a></li>
 <li><a href="../build/index.html#Atlans.consolidate-Tuple{Atlans.DrainingAbcIsotache, Any, Any}"><code>Atlans.consolidate</code></a></li>
@@ -670,19 +673,19 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <li><a href="../build/index.html#Atlans.draining_abc_isotache_column-NTuple{8, Any}"><code>Atlans.draining_abc_isotache_column</code></a></li>
 <li><a href="../build/index.html#Atlans.effective_stress!-Tuple{Atlans.AbstractConsolidationColumn}"><code>Atlans.effective_stress!</code></a></li>
 <li><a href="../build/index.html#Atlans.formulate-Tuple{Atlans.AbcIsotache, Vararg{Float64, 4}}"><code>Atlans.formulate</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Type, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Atlans.VerticalDomain, Dict}"><code>Atlans.initialize</code></a></li>
 <li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Vararg{Any, 4}}"><code>Atlans.initialize</code></a></li>
 <li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Atlans.VerticalDomain, Dict}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Atlans.VerticalDomain, Dict}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
 <li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.HydrostaticGroundwater}, Atlans.Phreatic, Atlans.VerticalDomain}"><code>Atlans.initialize</code></a></li>
 <li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
-<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.SimpleShrinkage}, Atlans.VerticalDomain, Dict}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullShrinkage}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.CarbonStore}, Atlans.VerticalDomain, Dict}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullConsolidation}, Type, Any, Any}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any, Any}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.DrainingAbcIsotache}, Type, Atlans.VerticalDomain, Dict}"><code>Atlans.initialize</code></a></li>
+<li><a href="../build/index.html#Atlans.initialize-Tuple{Type{Atlans.NullOxidation}, Any, Any}"><code>Atlans.initialize</code></a></li>
 <li><a href="../build/index.html#Atlans.parse_loglevel-Tuple{AbstractString}"><code>Atlans.parse_loglevel</code></a></li>
 <li><a href="../build/index.html#Atlans.periodduration-Tuple{Any}"><code>Atlans.periodduration</code></a></li>
 <li><a href="../build/index.html#Atlans.pow-Tuple{Any, Any}"><code>Atlans.pow</code></a></li>
@@ -690,8 +693,8 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
 <li><a href="../build/index.html#Atlans.prepare_forcingperiod!"><code>Atlans.prepare_forcingperiod!</code></a></li>
 <li><a href="../build/index.html#Atlans.prepare_forcingperiod!-Tuple{Atlans.ConsolidationColumn{Atlans.DrainingAbcIsotache, P} where P<:Atlans.Preconsolidation}"><code>Atlans.prepare_forcingperiod!</code></a></li>
 <li><a href="../build/index.html#Atlans.prepare_surcharge_column-Tuple{Atlans.Surcharge, Atlans.SoilColumn, CartesianIndex}"><code>Atlans.prepare_surcharge_column</code></a></li>
-<li><a href="../build/index.html#Atlans.prepare_timestep!-Tuple{Atlans.SoilColumn, Any}"><code>Atlans.prepare_timestep!</code></a></li>
 <li><a href="../build/index.html#Atlans.prepare_timestep!-Tuple{Atlans.SurchargeColumn, Any}"><code>Atlans.prepare_timestep!</code></a></li>
+<li><a href="../build/index.html#Atlans.prepare_timestep!-Tuple{Atlans.SoilColumn, Any}"><code>Atlans.prepare_timestep!</code></a></li>
 <li><a href="../build/index.html#Atlans.relative_oxidation_rate"><code>Atlans.relative_oxidation_rate</code></a></li>
 <li><a href="../build/index.html#Atlans.repeat_elements-Tuple{Any, Any}"><code>Atlans.repeat_elements</code></a></li>
 <li><a href="../build/index.html#Atlans.run!-Tuple{Any}"><code>Atlans.run!</code></a></li>
@@ -776,13 +779,14 @@ parse_loglevel(0) -&gt; LogLevel(0) (== Logging.Info)</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
